@@ -1,0 +1,34 @@
+$violet: #62466B;
+$dark-violet: #45364B;
+$pewter: #70A0AF;
+$orange-rose: #F45B69;
+$egg: #F0E2E7;
+$slate: #4A5553;
+
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2:wght@600&family=Montserrat:wght@800&family=Open+Sans&display=swap');
+
+$plain-text: 'Open Sans';
+$title: 'Montserrat';
+$accent: 'Baloo Tammudu 2';
+
+* {
+  font-family: $plain-text;
+}
+
+@mixin uniform-button {
+  border: none;
+    background: none;
+    color: $pewter;
+    cursor: pointer;
+    display: inline-block;
+    font-family: $accent;
+    font-size: 1rem;
+    margin: 0;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    text-align: center;
+    transition: background 250ms ease-in-out, 
+                transform 150ms ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}

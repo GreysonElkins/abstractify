@@ -1,0 +1,70 @@
+@import '../../styles/variables.scss';
+
+* {
+  font-family: $plain-text;
+}
+
+
+header {
+  align-items: center;
+  background-color: $violet;
+  background-size: cover;
+  color: $egg;
+  display: flex;
+  flex-direction: column;
+  padding: 2em 0 1em 0;
+  width: 100%;
+  
+  .title {
+    color: $orange-rose;
+    font-family: $title;
+    font-size: 2em;
+    margin: 1em;
+    text-decoration: none;
+  }
+  
+  nav {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+  }
+  
+  .toggleLabel {
+    color: $pewter;
+    font-size: .6em;
+  }
+
+
+  button {
+    @include uniform-button
+  }
+
+  .inactive-link {
+    @include uniform-button
+  }
+
+  .active-link, button:active {
+    color: $orange-rose;
+  }
+}
+
+.mono {
+    background-color: $slate;
+    background-image: none;
+
+    .title {
+      color: $egg;
+    }
+
+    button {
+      color: $pewter;
+    }
+    
+    .inactive-link {
+      color: $pewter;
+    }
+    
+    .active-link, button:active {
+      color: $egg;
+    }
+  }

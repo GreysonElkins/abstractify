@@ -10,7 +10,7 @@
 
 # production
 /build
-.env
+/src/ApiHelper/API_KEY.js
 
 # misc
 .DS_Store
