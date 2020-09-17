@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { NavLink, Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import './Header.scss'
 import './slider.scss'
 
@@ -94,15 +94,15 @@ m
 
   render() {
     return (
-      <header className={!this.state.gaudyMode && "mono"}>
+      <header className={!this.state.gaudyMode ? "mono" : ""}>
         <div onClick={this.glitchLetter}>
           <span className="title" tabIndex="0">
             {this.state.title.join("")}
           </span>
         </div>
-          <label class="switch">
+          <label className="switch">
             <input type="checkbox" />
-            <span class="slider round" onClick={this.toggleGaudy}></span>
+            <span className="slider round" onClick={this.toggleGaudy}></span>
           </label>
           <span className="toggleLabel">
             gaudy mode
