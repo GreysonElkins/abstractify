@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import './Header.scss'
+import './slider.scss'
 
     const letterOptions = {
       0: ["A", "^", "@", "ˆ"],
@@ -20,7 +21,8 @@ class Header extends Component {
   constructor() {
     super()
       this.state = {
-        title: []
+        title: [],
+        gaudyMode: true
       }
   }
 
@@ -65,7 +67,7 @@ m
           }, this.randomInterval(1000))
         }
         
-      }, this.randomInterval(800, 200))
+      }, this.randomInterval(800, 400))
     })
 
   }
@@ -87,14 +89,25 @@ m
         }, this.randomInterval())
   }
 
+  toggleGaudy = () => {
+    this.setState({ gaudyMode: this.state.gaudyMode ? false : true })
+  }
+
   render() {
     return (
-      <header>
-        <Link to="/" className="title" onClick={this.glitchLetter}>
+      <header className={!this.state.gaudyMode && "mono"}>
+        <div onClick={this.glitchLetter}>
           <span className="title" tabIndex="0">
             {this.state.title.join("")}
           </span>
-        </Link>
+        </div>
+          <label class="switch">
+            <input type="checkbox" />
+            <span class="slider round" onClick={this.toggleGaudy}></span>
+          </label>
+          <span className="toggleLabel">
+            gaudy mode
+          </span>
         <nav>
           <NavLink
             exact

@@ -8,6 +8,9 @@
 header {
   align-items: center;
   background-color: $violet;
+  // background-image: url('../../images/header-bg.gif');
+  background-repeat: no-repeat;
+  background-size: cover;
   color: $egg;
   display: flex;
   flex-direction: column;
@@ -21,11 +24,16 @@ header {
     margin: 1em;
     text-decoration: none;
   }
-
+  
   nav {
     display: flex;
     justify-content: space-between;
     width: 80%;
+  }
+  
+  .toggleLabel {
+    color: $pewter;
+    font-size: .6em;
   }
 
 
@@ -40,5 +48,25 @@ header {
   .active-link, button:active {
     color: $orange-rose;
   }
-
 }
+
+.mono {
+    background-color: $slate;
+    background-image: none;
+
+    .title {
+      color: $egg;
+    }
+
+    button {
+      color: $pewter;
+    }
+    
+    .inactive-link {
+      color: $pewter;
+    }
+    
+    .active-link, button:active {
+      color: $egg;
+    }
+  }
