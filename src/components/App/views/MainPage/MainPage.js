@@ -1,7 +1,11 @@
 import React from "react";
 import './MainPage.scss'
 
-const imageObjectsToJsx = ({ images }) => {
+const ignoreSeenImages = ({ images }) => {
+  return images.map(image => !image.seen && image)
+}
+
+const imageObjectsToJsx = (images) => {
   return images.map(image => {
     return (
       <img 
@@ -14,10 +18,10 @@ const imageObjectsToJsx = ({ images }) => {
   })
 }
 
-const diviUpImages = (props) => {
+const displayImages = (props) => {
+  const images = ignoreSeenImages(props)
+  const imageElements = imageObjectsToJsx(images)
   const columns = [1, 2, 3, 4, 5]
-  // filter out seen images at this point
-  const imageElements = imageObjectsToJsx(props)
   columns.forEach((column, i) => {
     const newImgSet = imageElements.reduce((set, img, j) => {
         if (j / 4 < column && j / 4 >= i) {
@@ -33,7 +37,7 @@ const diviUpImages = (props) => {
 const MainPage = (props) => {
   return (
     <div className="imageContainer">
-      {diviUpImages(props)}
+      {displayImages(props)}
     </div>
   )
 };
