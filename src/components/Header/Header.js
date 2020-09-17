@@ -72,7 +72,6 @@ m
   }
 
   glitchLetter = () => {
-    debugger
     const index = this.randomIndex(11)
         const glitchTitle = this.state.title
         const letterLimit = () => {
@@ -94,9 +93,9 @@ m
 
   render() {
     return (
-      <header className={!this.state.gaudyMode ? "mono" : ""}>
+      <header role="heading" className={!this.state.gaudyMode ? "mono" : ""}>
         <div onClick={this.glitchLetter}>
-          <span className="title" tabIndex="0">
+          <span role="banner" className="title" tabIndex="0">
             {this.state.title.join("")}
           </span>
         </div>
