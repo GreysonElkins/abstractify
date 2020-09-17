@@ -21,10 +21,14 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // getImages().then(images => {
-    //   this.setState({foreignSet: images})
-    // })
+    // refreshForeignSet()
     this.setState({foreignSet: response})
+  }
+  
+  refreshForeignSet() {
+    getImages().then(images => {
+      this.setState({ foreignSet: images })
+    })
   }
 
   markLoadedImagesSeen() {
