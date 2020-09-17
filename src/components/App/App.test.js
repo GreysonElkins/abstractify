@@ -1,9 +1,36 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import App from './App';
+import { screen, render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom'
+import '@testing-library/jest-dom'
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
-});
+import App from './App';
+import { getImages } from '../../ApiHelper/ApiHelper';
+import { response } from '../../test-data/fetch-response'
+jest.mock('../../ApiHelper/ApiHelper.js')
+
+describe('App', () => {
+
+  beforeEach(() => {
+    getImages.mockResolvedValueOnce(response)
+    render(<MemoryRouter><App /></MemoryRouter>)
+  })
+
+  it('should have a main section', () => {
+    const main = screen.getByRole('main')
+    expect(main).toBeInTheDocument()
+  })
+
+  it('should render the Header', () => {
+    const header = screen.getByRole('heading')
+    expect(header).toBeInTheDocument()
+  })
+
+  it('should render the MainPage on load', () => {
+    const imgs = screen.getAllByRole('img')
+    expect(imgs).not.toHaveLength(0)
+  })
+
+  it('should fetch images on load', () => {
+    expect(getImages).toHaveBeenCalled()
+  })
+})

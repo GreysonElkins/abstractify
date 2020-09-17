@@ -6,7 +6,7 @@ import MainPage from './views/MainPage/MainPage'
 import UserPage from './views/UserPage/UserPage'
 import PopUpPane from '../PopUpPane/PopUpPane'
 import { getImages } from '../../ApiHelper/ApiHelper'
-import { response } from '../../ApiHelper/test-data'
+import { response } from '../../test-data/fetch-response'
 
 import './App.scss';
 
@@ -24,6 +24,7 @@ class App extends Component {
     getImages().then(images => {
       this.setState({foreignSet: images})
     })
+    // this.setState({foreignSet: response})
   }
 
   render() {
