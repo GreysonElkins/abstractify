@@ -1,4 +1,5 @@
-require("dotenv").config();
+require('dotenv').config();
+const { ApiKey } = require('./API_KEY')
 
 const pages = ['https://api.pexels.com/v1/curated?per_page=80']
 
@@ -26,7 +27,7 @@ export const getImages = () => {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        authorization: `563492ad6f917000010000015d0eadc38b6c47e682101b7a55daca2d`,
+        authorization: ApiKey,
       },
     })
       .then((response) => {

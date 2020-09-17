@@ -20,9 +20,9 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // getImages().then(images => {
-    //   this.setState({foreignSet: images})
-    // })
+    getImages().then(images => {
+      this.setState({foreignSet: images})
+    })
   }
 
   render() {

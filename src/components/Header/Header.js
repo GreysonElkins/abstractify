@@ -27,7 +27,6 @@ class Header extends Component {
   }
 
   componentDidMount() {
-    debugger
     this.loadTitle()
   }
 
