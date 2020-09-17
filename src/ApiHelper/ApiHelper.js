@@ -9,7 +9,7 @@ const cleanPhotos = (photos) => {
       id: photo.id,
       width: photo.width,
       height: photo.height,
-      url: photo.url,
+      url: photo.src.original,
       photographer: {
         name: photo.photographer,
         url: photo.photographer_url,
