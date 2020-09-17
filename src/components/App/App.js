@@ -21,10 +21,9 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // getImages().then(images => {
-    //   this.setState({foreignSet: images})
-    // })
-    this.setState({foreignSet: response})
+    getImages().then(images => {
+      this.setState({foreignSet: images})
+    })
   }
 
   render() {
@@ -32,7 +31,7 @@ class App extends Component {
       <main>
         <Header />
         <Route exact path="/">
-          <MainPage />
+          <MainPage images={this.state.foreignSet}/>
         </Route>
         <Route exact path="/set/:id">
           <MainPage />

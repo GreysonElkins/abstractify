@@ -1,7 +1,7 @@
 require('dotenv').config();
 const { ApiKey } = require('./API_KEY')
 
-const pages = ['https://api.pexels.com/v1/curated?per_page=80']
+const pages = ['https://api.pexels.com/v1/search?per_page=80&query=abstract+landscape+urban']
 
 const cleanPhotos = (photos) => {
   return photos.map(photo => {
@@ -9,7 +9,7 @@ const cleanPhotos = (photos) => {
       id: photo.id,
       width: photo.width,
       height: photo.height,
-      url: photo.src.original,
+      url: photo.src.medium,
       photographer: {
         name: photo.photographer,
         url: photo.photographer_url,
