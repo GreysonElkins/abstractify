@@ -36,7 +36,7 @@ export const getImages = () => {
       })
       .then((imageSet) => {
         if (res.ok) {
-          pages.unshift(imageSet.nextPage);
+          pages.unshift(imageSet.next_page);
           return cleanPhotos(imageSet.photos);
         } else {
           return `Something went wrong while

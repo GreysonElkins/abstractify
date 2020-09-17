@@ -1,5 +1,5 @@
 import React from 'react'
-import { screen, render } from '@testing-library/react'
+import { screen, render, fireEvent } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import '@testing-library/jest-dom'
 
@@ -7,9 +7,11 @@ import Header from './Header'
 
 
 describe ('Header', () => {
-  
+  let mockRefresh;
+
   beforeEach(()=> {
-    render(<MemoryRouter><Header /></MemoryRouter>)
+    mockRefresh = jest.fn()
+    render(<MemoryRouter><Header refresh={mockRefresh}/></MemoryRouter>)
   }) 
 
   it ('should display the title of the application', () => {
@@ -43,5 +45,11 @@ describe ('Header', () => {
   it('should have a navigation section', () => {
     const nav = screen.getByRole('navigation')
     expect(nav).toBeInTheDocument()
+  })
+
+  it('should fire a function when refresh is clicked', () => {
+    const button = screen.getByRole('button', { name: 'Refresh image set' })
+    fireEvent.click(button)
+    expect(mockRefresh).toHaveBeenCalled()
   })
 })

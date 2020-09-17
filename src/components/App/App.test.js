@@ -1,5 +1,5 @@
 import React from 'react';
-import { screen, render } from '@testing-library/react';
+import { screen, render, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom'
 import '@testing-library/jest-dom'
 
@@ -32,5 +32,11 @@ describe('App', () => {
 
   it('should fetch images on load', () => {
     expect(getImages).toHaveBeenCalled()
+  })
+
+  it('should fetch data when the refresh button is clicked', () => {
+    const button = screen.getByRole('button', { name: "Refresh image set" })
+    fireEvent.click(button)
+    expect(getImages).toHaveBeenCalledTimes(1)
   })
 })

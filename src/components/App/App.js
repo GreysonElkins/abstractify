@@ -21,25 +21,24 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // refreshForeignSet()
+    // this.refreshForeignSet()
     this.setState({foreignSet: response})
   }
   
-  refreshForeignSet() {
+  refreshForeignSet = () => {
     getImages().then(images => {
       this.setState({ foreignSet: images })
     })
   }
 
-  markLoadedImagesSeen() {
+  markLoadedImagesSeen = () => {
     const loaded_imgs = document.querySelectorAll('img')
     const matchIds = []
     loaded_imgs.forEach(node => {
       matchIds.push(node.id)
     })
 
-    const updateSet = this.state.foreignSet.map(img => {
-      
+    const updateSet = this.state.foreignSet.map(img => {  
       if (matchIds.includes(img.id.toString())) {
         img.seen = true
       }
@@ -51,7 +50,7 @@ class App extends Component {
   render() {
     return (
       <main>
-        <Header />
+        <Header refresh={this.refreshForeignSet} />
         <Route exact path="/">
           <MainPage images={this.state.foreignSet}/>
         </Route>

@@ -119,7 +119,13 @@ m
           <button title="About Abstractify" onClick={this.glitchLetter}>
             About
           </button>
-          <button title="Refresh image set" onClick={this.glitchLetter}>
+          <button 
+            title="Refresh image set" 
+            onClick={() => {
+              this.props.refresh()
+              this.glitchLetter() 
+            }}
+          >
             Refresh
           </button>
           <button title="Save this image set" onClick={this.glitchLetter}>
