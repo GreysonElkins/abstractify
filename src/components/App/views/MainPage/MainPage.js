@@ -1,8 +1,14 @@
 import React from "react";
 import './MainPage.scss'
 
-const ignoreSeenImages = (images) => {
-  return images.map(image => !image.seen && image)
+const ignoreSeenImages = ({ images, refresh }) => {
+  const unseenImages = images.map(image => !image.seen && image)
+  if (unseenImages.length < 20) {
+    refresh()
+    return []
+  } else {
+    return unseenImages
+  }
 }
 
 const imageObjectsToJsx = (images) => {
@@ -34,10 +40,10 @@ const displayImages = (props) => {
   return columns
 }
 
-const MainPage = ({ images }) => {
+const MainPage = (props) => {
   return (
     <div className="imageContainer">
-      {displayImages(images)}
+      {displayImages(props)}
     </div>
   )
 };

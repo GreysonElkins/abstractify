@@ -52,7 +52,10 @@ class App extends Component {
       <main>
         <Header refresh={this.refreshForeignSet} />
         <Route exact path="/">
-          <MainPage images={this.state.foreignSet}/>
+          <MainPage 
+            images={this.state.foreignSet} 
+            refresh={this.refreshForeignSet}
+          />
         </Route>
         <Route exact path="/set/:id">
           <MainPage />
