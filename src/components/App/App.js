@@ -5,6 +5,7 @@ import Header from '../Header/Header'
 import MainPage from './views/MainPage/MainPage'
 import UserPage from './views/UserPage/UserPage'
 import PopUpPane from '../PopUpPane/PopUpPane'
+import { getImages }from '../../ApiHelper/ApiHelper'
 
 import './App.scss';
 
@@ -12,10 +13,16 @@ class App extends Component {
   constructor() {
     super() 
     this.state = {
-      foreignSets: [],
+      foreignSet: [],
       savedSets: [],
       popUpTrigger: {show: ''}
     }
+  }
+
+  componentDidMount() {
+    getImages().then(images => {
+      this.setState({foreignSet: images})
+    })
   }
 
   render() {
