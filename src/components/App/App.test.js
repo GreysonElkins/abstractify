@@ -34,9 +34,20 @@ describe('App', () => {
     expect(getImages).toHaveBeenCalled()
   })
 
-  it('should fetch data when the refresh button is clicked', () => {
+  it('should load different images when refresh has been clicked', () => {
+    const button = screen.getByRole('button', { name: "Refresh image set" })
+    const imageOne = document.querySelector('img')
+    fireEvent.click(button)
+    const imageTwo = document.querySelector('img')
+    expect(imageOne.id).not.toEqual(imageTwo.id)
+  })
+
+  it('should fetch on refresh click if there are no more unseen', () => {
     const button = screen.getByRole('button', { name: "Refresh image set" })
     fireEvent.click(button)
-    expect(getImages).toHaveBeenCalledTimes(1)
+    fireEvent.click(button)
+    fireEvent.click(button)
+    fireEvent.click(button)
+    expect(getImages).toHaveBeenCalled()
   })
 })

@@ -27,10 +27,8 @@ class App extends Component {
   
   refreshForeignSet = () => {
     this.markLoadedImagesSeen() 
-    console.log(this.checkQuantityUnseen())
     if (this.checkQuantityUnseen() < 20) {
       getImages().then(images => {
-        console.log('fetched')
         this.setState({ foreignSet: images })
       })
     }
