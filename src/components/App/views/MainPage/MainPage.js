@@ -2,13 +2,7 @@ import React from "react";
 import './MainPage.scss'
 
 const ignoreSeenImages = ({ images, refresh }) => {
-  const unseenImages = images.map(image => !image.seen && image)
-  if (unseenImages.length < 20) {
-    refresh()
-    return []
-  } else {
-    return unseenImages
-  }
+  return images.filter(image => !image.seen)
 }
 
 const imageObjectsToJsx = (images) => {

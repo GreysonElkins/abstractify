@@ -26,9 +26,21 @@ class App extends Component {
   }
   
   refreshForeignSet = () => {
-    getImages().then(images => {
-      this.setState({ foreignSet: images })
-    })
+    this.markLoadedImagesSeen() 
+    console.log(this.checkQuantityUnseen())
+    if (this.checkQuantityUnseen() < 20) {
+      getImages().then(images => {
+        console.log('fetched')
+        this.setState({ foreignSet: images })
+      })
+    }
+  }
+
+  checkQuantityUnseen = () => {
+    return this.state.foreignSet.reduce((unseenQty, img) => {
+      if (!img.seen) unseenQty++
+      return unseenQty
+    }, 0)
   }
 
   markLoadedImagesSeen = () => {
@@ -45,6 +57,7 @@ class App extends Component {
       return img
     })
     this.setState({ foreignSet: updateSet })
+
   }
 
   render() {
