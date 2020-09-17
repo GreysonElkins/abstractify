@@ -8,6 +8,7 @@ const imageObjectsToJsx = ({ images }) => {
         key={image.id}
         alt={`Photographed by ${image.photographer.name}`}
         src={image.url}
+        id={image.id}
       />
     )
   })

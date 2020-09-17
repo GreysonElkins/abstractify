@@ -21,10 +21,27 @@ class App extends Component {
   }
 
   componentDidMount() {
-    getImages().then(images => {
-      this.setState({foreignSet: images})
+    // getImages().then(images => {
+    //   this.setState({foreignSet: images})
+    // })
+    this.setState({foreignSet: response})
+  }
+
+  markLoadedImagesSeen() {
+    const loaded_imgs = document.querySelectorAll('img')
+    const matchIds = []
+    loaded_imgs.forEach(node => {
+      matchIds.push(node.id)
     })
-    // this.setState({foreignSet: response})
+
+    const updateSet = this.state.foreignSet.map(img => {
+      
+      if (matchIds.includes(img.id.toString())) {
+        img.seen = true
+      }
+      return img
+    })
+    this.setState({ foreignSet: updateSet })
   }
 
   render() {
