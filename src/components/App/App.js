@@ -65,7 +65,6 @@ class App extends Component {
       return img
     })
     this.setState({ foreignSet: updateSet })
-
   }
 
   render() {
@@ -89,7 +88,7 @@ class App extends Component {
       </main>
     );
   }
-  }
+}
 
 export default App;
  
