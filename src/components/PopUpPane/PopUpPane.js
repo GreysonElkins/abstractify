@@ -60,7 +60,7 @@ class PopUpPane extends Component {
         </p>
           {this.state.message 
             && (
-              <span class="error-message">
+              <span className="error-message">
                 {this.state.message}
               </span>
             )
