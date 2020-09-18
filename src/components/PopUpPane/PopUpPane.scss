@@ -1,0 +1,29 @@
+@import '../../styles/variables.scss';
+
+.pop-module {
+  background-color: $egg;
+  border-radius: 30px;
+  height: 30%;
+  top: 30%;
+  padding: 1em;
+  position: absolute;
+  left: 35%;
+  width: 30%;
+  z-index: 4;
+
+  header {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .close {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    border: thick double $violet;
+    width: 1.5em;
+    height: 1.5em;
+    // padding: auto;
+  }
+}

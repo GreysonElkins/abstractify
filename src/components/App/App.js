@@ -18,7 +18,7 @@ class App extends Component {
       title: [],
       foreignSet: [],
       savedSets: [],
-      popUpTrigger: { show: "" },
+      popUpTrigger: "",
       isGaudy: true,
     };
   }
@@ -35,6 +35,7 @@ class App extends Component {
       <main>
         <Header 
           title={this.state.title} 
+          showPopUp={this.showPopUp}
           refresh={this.refreshForeignSet} 
           isGaudy={this.state.isGaudy}
           toggleGaudy={this.toggleGaudy}
@@ -52,10 +53,12 @@ class App extends Component {
         <Route exact path="/your-sets">
           <UserPage />
         </Route>
-        {this.state.popUpTrigger.show === "save" && <PopUpPane />}
-        {this.state.popUpTrigger.show === "about" && <PopUpPane />}
+        {this.state.popUpTrigger === "about" 
+          && <PopUpPane show={this.state.popUpTrigger} hide={this.hidePopUp}/>
+        }
+        {this.state.popUpTrigger === "save" && <PopUpPane />}
       </main>
-    );
+    )
   }
 
   componentDidMount() {
@@ -124,6 +127,14 @@ class App extends Component {
     }
     const update = [...this.state.savedSets, newSet]
     this.setState({savedSets: update})
+  }
+
+  showPopUp = (key) => {
+    this.setState({ popUpTrigger: key })
+  }
+
+  hidePopUp = () => {
+    this.setState({ popUpTrigger: '' })
   }
 
   loadTitle = () => {

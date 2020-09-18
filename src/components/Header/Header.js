@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 import './Header.scss'
 import './toggle.scss'
 
-const Header = ({ title, isGaudy, toggleGaudy, refresh, glitch}) => {
+const Header = ({ title, isGaudy, toggleGaudy, showPopUp, refresh, glitch}) => {
     return (
       <header role="heading" className={isGaudy ? "" : "mono"}>
         <div>
@@ -29,6 +29,7 @@ const Header = ({ title, isGaudy, toggleGaudy, refresh, glitch}) => {
           <button
             title="About Abstractify"
             onClick={() => {
+              showPopUp('about')
               glitch(true)
             }}
           >
