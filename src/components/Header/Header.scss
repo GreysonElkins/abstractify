@@ -22,9 +22,9 @@
     -moz-appearance: none;
 }
 
-header {
+main > header {
   align-items: center;
-  background-color: $violet;
+  background-color: $dark-violet;
   background-size: cover;
   color: $egg;
   display: flex;
@@ -68,7 +68,7 @@ header {
   }
 }
 
-.mono {
+main > .mono {
     background-color: $slate;
     background-image: none;
 

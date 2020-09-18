@@ -38,7 +38,7 @@ class ImagePanel extends Component {
               id={`${this.props.image.id}-lock`} 
               className="lock"
               title="Prevent this image from reloading"
-              key={`${image.id}-lock`}
+              key={`${this.props.image.id}-lock`}
               src={this.props.image.locked ? padlock : unlock}
               alt={this.props.image.locked ? 'A locked padlock icon' : 'An unlocked padlock icon'} 
             />

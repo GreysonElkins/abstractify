@@ -38,7 +38,7 @@ const displayImages = (props) => {
 
 const MainPage = (props) => {
   return (
-    <div className="imageContainer">
+    <div className="imageContainer" key="container">
       {displayImages(props)}
     </div>
   )

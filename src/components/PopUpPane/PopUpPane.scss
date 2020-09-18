@@ -1,0 +1,112 @@
+@import '../../styles/variables.scss';
+
+@mixin pop-up-button {
+  align-content: center;
+  background-color: $egg;
+  border: thick double $violet;
+  cursor: pointer;
+  display: flex;
+  color: $violet;
+  font-family: $accent;
+  font-size: 1.2em;
+  justify-content: center;
+  padding: auto;
+  width: min-content;
+  // height: min-content;
+}
+
+@mixin center-column {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.pop-module {
+  background-color: $egg;
+  border-radius: 30px;
+  height: min-content;
+  top: 30%;
+  padding: 2em;
+  position: absolute;
+  left: 35%;
+  width: 30%;
+  z-index: 4;
+
+  header {
+    background-color: none;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    h2 {
+      font-size: 2em;
+      margin: 0;
+      color: $orange-rose;
+      font-family: $title;
+    }
+
+    .close {
+      @include pop-up-button();
+      color: $violet;
+      font-size: 1em;
+      height: 1.5em;
+      width: 1.5em;
+    } 
+    
+    &.mono-pop {
+      h2 {
+        color: $pewter;
+      }
+      .close {
+        border-color: $slate;
+        color: $slate;
+      }
+    }
+  }
+
+  p {
+    font-size: 1.5em;
+    font-family: 'Open-sans';
+    color: $dark-violet;
+  }   
+
+  .mono-pop {
+    color: $slate;
+  }
+
+  .pop-body {
+    @include center-column();
+  
+    form {
+      @include center-column();
+    }
+    button {
+      @include pop-up-button();
+    }
+    
+    &-mono {
+      @include center-column();
+      
+      form {
+        @include center-column();
+      }
+
+      button {
+        @include pop-up-button;
+        color: $slate;
+        border-color: $slate;
+      }
+    }
+  }
+
+  .error-message {
+    color: $orange-rose;
+    text-emphasis: bold;
+    margin-bottom: 1em;
+  }
+}
+
+
+
+
+
