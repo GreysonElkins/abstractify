@@ -35,7 +35,6 @@ class App extends Component {
   }
 
   toggleImageLock = (id) => {
-    debugger
     const update = this.state.foreignSet.map(img => {
       if (img.id === id) {
         img.locked = img.locked ? false : true
@@ -61,7 +60,7 @@ class App extends Component {
     })
 
     const updateSet = this.state.foreignSet.map(img => {  
-      if (matchIds.includes(img.id.toString())) {
+      if (matchIds.includes(img.id.toString()) && !img.locked) {
         img.seen = true
       }
       return img

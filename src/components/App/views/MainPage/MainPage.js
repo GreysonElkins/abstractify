@@ -18,9 +18,9 @@ const imageObjectsToJsx = (images, lockFn) => {
 }
 
 const displayImages = (props) => {
-  // const images = ignoreSeenImages(props)
+  const images = ignoreSeenImages(props.images)
   const imagePanels = imageObjectsToJsx(
-    ignoreSeenImages(props.images),
+    images,
     props.toggleImageLock
   );
   const columns = [1, 2, 3, 4, 5]
