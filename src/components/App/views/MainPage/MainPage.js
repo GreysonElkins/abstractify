@@ -1,35 +1,37 @@
 import React from "react";
 import './MainPage.scss'
 
-const ignoreSeenImages = ({ images, refresh }) => {
+import ImagePanel from '../../../ImagePanel/ImagePanel'
+
+const ignoreSeenImages = (images) => {
   return images.filter(image => !image.seen)
 }
 
-const imageObjectsToJsx = (images) => {
+const imageObjectsToJsx = (images, lockFn) => {
   return images.map(image => {
     return (
-      <img 
-        key={image.id}
-        alt={`Photographed by ${image.photographer.name}`}
-        src={image.url}
-        id={image.id}
-      />
+      <>
+        <ImagePanel key={`image-panel-${image.id}`} image={image} toggleImageLock={lockFn}/>
+      </>
     )
   })
 }
 
 const displayImages = (props) => {
-  const images = ignoreSeenImages(props)
-  const imageElements = imageObjectsToJsx(images)
+  const images = ignoreSeenImages(props.images)
+  const imagePanels = imageObjectsToJsx(
+    images,
+    props.toggleImageLock
+  );
   const columns = [1, 2, 3, 4, 5]
   columns.forEach((column, i) => {
-    const newImgSet = imageElements.reduce((set, img, j) => {
+    const newImgSet = imagePanels.reduce((set, img, j) => {
         if (j / 4 < column && j / 4 >= i) {
           set.push(img)
         }
         return set
       }, [])
-    columns[i] = <div className="column" key={i}>{newImgSet}</div>
+    columns[i] = <div className="column" key={`column${i}`}>{newImgSet}</div>
   }, [])  
   return columns
 }

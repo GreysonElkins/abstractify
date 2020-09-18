@@ -34,6 +34,16 @@ class App extends Component {
     }
   }
 
+  toggleImageLock = (id) => {
+    const update = this.state.foreignSet.map(img => {
+      if (img.id === id) {
+        img.locked = img.locked ? false : true
+      }
+      return img
+    })
+    this.setState({ foreignSet: update })
+  }
+
   checkQuantityUnseen = () => {
     return this.state.foreignSet.reduce((unseenQty, img) => {
       if (!img.seen) unseenQty++
@@ -49,7 +59,7 @@ class App extends Component {
     })
 
     const updateSet = this.state.foreignSet.map(img => {  
-      if (matchIds.includes(img.id.toString())) {
+      if (matchIds.includes(img.id.toString()) && !img.locked) {
         img.seen = true
       }
       return img
@@ -65,7 +75,7 @@ class App extends Component {
         <Route exact path="/">
           <MainPage 
             images={this.state.foreignSet} 
-            refresh={this.refreshForeignSet}
+            toggleImageLock={this.toggleImageLock}
           />
         </Route>
         <Route exact path="/set/:id">
