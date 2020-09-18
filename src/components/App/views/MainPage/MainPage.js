@@ -1,6 +1,8 @@
 import React from "react";
 import './MainPage.scss'
 
+import ImagePanel from '../../../ImagePanel/ImagePanel'
+
 const ignoreSeenImages = ({ images, refresh }) => {
   return images.filter(image => !image.seen)
 }
@@ -8,12 +10,7 @@ const ignoreSeenImages = ({ images, refresh }) => {
 const imageObjectsToJsx = (images) => {
   return images.map(image => {
     return (
-      <img 
-        key={image.id}
-        alt={`Photographed by ${image.photographer.name}`}
-        src={image.url}
-        id={image.id}
-      />
+      <ImagePanel image={image} />
     )
   })
 }
