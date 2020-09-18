@@ -24,7 +24,6 @@ class App extends Component {
   }
 
   render() {
-    
     if (this.state.isGaudy) {
       document.body.style.backgroundImage = `url(${bg})`
     } else {
@@ -61,7 +60,11 @@ class App extends Component {
           <UserPage />
         </Route>
         {this.state.popUpTrigger === "about" && (
-          <PopUpPane show={this.state.popUpTrigger} hide={this.hidePopUp} />
+          <PopUpPane 
+            show={this.state.popUpTrigger} 
+            hide={this.hidePopUp}
+            isGaudy={this.state.isGaudy}
+          />
         )}
         {this.state.popUpTrigger === "save" && <PopUpPane />}
         

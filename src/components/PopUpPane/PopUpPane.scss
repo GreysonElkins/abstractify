@@ -33,14 +33,27 @@
       border: thick double $violet;
       width: 1.5em;
       height: 1.5em;
-    }
+    } 
     
+    &.mono-pop {
+      h2 {
+        color: $pewter;
+      }
+      .close {
+        border-color: $slate;
+      }
+    }
   }
 
   p {
     font-size: 1.5em;
     font-family: 'Open-sans';
     color: $dark-violet;
-  }    
+  }   
+
+  .mono-pop {
+    color: $slate;
+  }
+
 }
 
