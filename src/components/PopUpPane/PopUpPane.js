@@ -5,7 +5,8 @@ class PopUpPane extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      title: ''
+      title: '',
+      message: '',
     }
   }
   render() {
@@ -54,9 +55,16 @@ class PopUpPane extends Component {
     } else if (show === 'Save') {
       return (
       <div className={isGaudy ? "pop-body" : "pop-body-mono"}>
-        <p className={isGaudy ? "" : "mono-pop"}>
-          Pick a name for this set!
+        <p className={isGaudy ? "" : "pop-body-mono"}>
+          Pick a name for this set! <br />
         </p>
+          {this.state.message 
+            && (
+              <span class="error-message">
+                {this.state.message}
+              </span>
+            )
+          }
         <form onSubmit={(event) => {
           event.preventDefault()
           this.attemptSave()
@@ -75,13 +83,17 @@ class PopUpPane extends Component {
   }
   
   updateInput = (event) => {
-    this.setState({title: event.target.value})
+    this.setState({title: event.target.value, message: ''})
   }
 
   attemptSave = () => {
     if(this.state.title !== '') {
       this.props.save(this.state.title)
       this.props.hide(2)
+    } else {
+      this.setState({
+        message: 'You have to give the set a name!'
+      })
     }
   }
 }

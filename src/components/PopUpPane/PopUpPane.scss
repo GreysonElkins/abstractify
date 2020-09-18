@@ -76,7 +76,7 @@
 
   .pop-body {
     @include center-column();
-
+  
     form {
       @include center-column();
     }
@@ -97,6 +97,12 @@
         border-color: $slate;
       }
     }
+  }
+
+  .error-message {
+    color: $orange-rose;
+    text-emphasis: bold;
+    margin-bottom: 1em;
   }
 }
 

@@ -74,9 +74,9 @@ describe('Save PopUpPane', () => {
     expect(buttons).toHaveLength(2);
   })
 
-  it("should fire the close function when the 𝕏 button is clicked", () => {
-    const x = screen.getByRole("button", { name: "𝕏" });
-    fireEvent.click(x);
-    expect(mockHide).toHaveBeenCalled();
-  });
+    it("should fire the close function when the 𝕏 button is clicked", () => {
+      const x = screen.getByRole("button", { name: "𝕏" });
+      fireEvent.click(x);
+      expect(mockHide).toHaveBeenCalled();
+    });
 })
