@@ -29,8 +29,7 @@ const Header = ({ title, isGaudy, toggleGaudy, showPopUp, refresh, glitch}) => {
           <button
             title="About Abstractify"
             onClick={() => {
-              showPopUp('about')
-              glitch(true)
+              showPopUp('About', 5)
             }}
           >
             About
@@ -39,7 +38,6 @@ const Header = ({ title, isGaudy, toggleGaudy, showPopUp, refresh, glitch}) => {
             title="Refresh image set"
             onClick={() => {
               refresh();
-              glitch(true);
             }}
           >
             Refresh
@@ -47,7 +45,8 @@ const Header = ({ title, isGaudy, toggleGaudy, showPopUp, refresh, glitch}) => {
           <button
             title="Save this image set"
             onClick={() => {
-              glitch(true);
+              showPopUp('Save', 2)
+              glitch(true)
             }}
           >
             Save

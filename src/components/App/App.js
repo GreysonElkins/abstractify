@@ -35,7 +35,10 @@ class App extends Component {
       {this.state.popUpTrigger 
         && <div 
           className="fade"
-          onClick={this.hidePopUp}
+          onClick={() => {
+            const fix = this.state.popUpTrigger === "About" ? 5 : 2;
+            this.hidePopUp(fix)
+          }}
         >
         </div>
       }
@@ -59,14 +62,21 @@ class App extends Component {
         <Route exact path="/your-sets">
           <UserPage />
         </Route>
-        {this.state.popUpTrigger === "about" && (
+        {this.state.popUpTrigger === "About" && (
           <PopUpPane 
             show={this.state.popUpTrigger} 
             hide={this.hidePopUp}
             isGaudy={this.state.isGaudy}
+            />
+            )}
+        {this.state.popUpTrigger === "Save" && (
+          <PopUpPane 
+            show={this.state.popUpTrigger} 
+            hide={this.hidePopUp}
+            save={this.saveSet}
+            isGaudy={this.state.isGaudy}
           />
         )}
-        {this.state.popUpTrigger === "save" && <PopUpPane />}
         
       </main>
     );
@@ -140,11 +150,13 @@ class App extends Component {
     this.setState({savedSets: update})
   }
 
-  showPopUp = (key) => {
+  showPopUp = (key, num) => {
+    this.glitchLetter(false, num)
     this.setState({ popUpTrigger: key })
   }
 
-  hidePopUp = () => {
+  hidePopUp = (num) => {
+    this.glitchLetter(true, num)
     this.setState({ popUpTrigger: '' })
   }
 

@@ -10,7 +10,10 @@ class PopUpPane extends Component {
           <div 
             role="button" 
             className="close" 
-            onClick={this.props.hide}
+            onClick={() => {
+              const fix = this.props.show === 'About' ? 5 : 2;
+              this.props.hide(fix)
+            }}
             tabIndex="0"
           >
             𝕏
@@ -24,7 +27,7 @@ class PopUpPane extends Component {
   }
   
   determineBody = ({ show, isGaudy }) => {
-    if (show === 'about') {
+    if (show === 'About') {
       return (
         <p className={isGaudy ? "" : "mono-pop"} >
           Abstractify is a mood board for Abstract Painters 
