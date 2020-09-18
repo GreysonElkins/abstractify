@@ -33,10 +33,17 @@ class App extends Component {
 
     return (
       <main>
-        <Header 
-          title={this.state.title} 
+      {this.state.popUpTrigger 
+        && <div 
+          className="fade"
+          onClick={this.hidePopUp}
+        >
+        </div>
+      }
+        <Header
+          title={this.state.title}
           showPopUp={this.showPopUp}
-          refresh={this.refreshForeignSet} 
+          refresh={this.refreshForeignSet}
           isGaudy={this.state.isGaudy}
           toggleGaudy={this.toggleGaudy}
           glitch={this.glitchLetter}
@@ -53,12 +60,13 @@ class App extends Component {
         <Route exact path="/your-sets">
           <UserPage />
         </Route>
-        {this.state.popUpTrigger === "about" 
-          && <PopUpPane show={this.state.popUpTrigger} hide={this.hidePopUp}/>
-        }
+        {this.state.popUpTrigger === "about" && (
+          <PopUpPane show={this.state.popUpTrigger} hide={this.hidePopUp} />
+        )}
         {this.state.popUpTrigger === "save" && <PopUpPane />}
+        
       </main>
-    )
+    );
   }
 
   componentDidMount() {

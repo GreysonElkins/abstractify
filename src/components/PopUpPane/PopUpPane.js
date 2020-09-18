@@ -4,13 +4,14 @@ import './PopUpPane.scss'
 class PopUpPane extends Component {
   render() {
     return (
-      <div class="pop-module">
-        <header>
-          <div role="banner">About section</div>
+      <div className="pop-module">
+        <header id="popup">
+          <h2>{this.props.show}</h2>
           <div 
             role="button" 
-            class="close" 
+            className="close" 
             onClick={this.props.hide}
+            tabIndex="0"
           >
             𝕏
           </div>

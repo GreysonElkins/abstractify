@@ -3,27 +3,44 @@
 .pop-module {
   background-color: $egg;
   border-radius: 30px;
-  height: 30%;
+  height: min-content;
   top: 30%;
-  padding: 1em;
+  padding: 2em;
   position: absolute;
   left: 35%;
   width: 30%;
   z-index: 4;
 
   header {
+    background-color: none;
     display: flex;
     justify-content: space-between;
+    width: 100%;
+
+    h2 {
+      font-size: 2em;
+      margin: 0;
+      color: $orange-rose;
+      font-family: $title;
+    }
+
+    .close {
+      cursor: pointer;
+      display: flex;
+      color: $dark-violet;
+      justify-content: center;
+      align-content: center;
+      border: thick double $violet;
+      width: 1.5em;
+      height: 1.5em;
+    }
+    
   }
-  
-  .close {
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    border: thick double $violet;
-    width: 1.5em;
-    height: 1.5em;
-    // padding: auto;
-  }
+
+  p {
+    font-size: 1.5em;
+    font-family: 'Open-sans';
+    color: $dark-violet;
+  }    
 }
+
