@@ -10,7 +10,10 @@ const ignoreSeenImages = ({ images, refresh }) => {
 const imageObjectsToJsx = (images) => {
   return images.map(image => {
     return (
-      <ImagePanel image={image} />
+      <>
+        <ImagePanel image={image} />
+      {/* <img src={padlock}/> */}
+      </>
     )
   })
 }
