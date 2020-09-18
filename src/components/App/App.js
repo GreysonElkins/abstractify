@@ -64,8 +64,6 @@ class App extends Component {
     this.setState({ foreignSet: response });
   }
 
-
-
   refreshForeignSet = () => {
     this.markLoadedImagesSeen();
     if (this.checkQuantityUnseen() < 20) {
@@ -83,12 +81,17 @@ class App extends Component {
     }, 0);
   };
 
-  markLoadedImagesSeen = () => {
+  identifyImagesOnPage = () => {
     const loaded_imgs = document.querySelectorAll("img");
-    const matchIds = [];
+    const visibleIds = [];
     loaded_imgs.forEach((node) => {
-      matchIds.push(node.id);
+      visibleIds.push(node.id);
     });
+    return visibleIds
+  }
+
+  markLoadedImagesSeen = () => {
+    const matchIds = this.identifyImagesOnPage()
 
     const updateSet = this.state.foreignSet.map((img) => {
       if (matchIds.includes(img.id.toString()) && !img.locked) {
@@ -109,6 +112,19 @@ class App extends Component {
     this.setState({ foreignSet: update });
     this.glitchLetter(true);
   };
+
+  saveSet = (provided_title) => {
+    const visibleIds = this.identifyImagesOnPage()
+    const newSet = {
+      title: provided_title,
+      images: this.state.foreignSet.filter(img => {
+          if (visibleIds.includes(img.id)) return img
+        }),
+      created_at: Date.now()
+    }
+    const update = [...this.state.savedSets, newSet]
+    this.setState({savedSets: update})
+  }
 
   loadTitle = () => {
     for (let i = 0; i < 11; i++) {
