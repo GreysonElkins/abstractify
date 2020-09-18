@@ -75,8 +75,10 @@
   }
 
   .pop-body {
+    @include center-column();
+
     form {
-      @include center-column()
+      @include center-column();
     }
     button {
       @include pop-up-button();
