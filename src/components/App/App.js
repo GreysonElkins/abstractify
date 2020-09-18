@@ -9,6 +9,7 @@ import { getImages } from '../../ApiHelper/ApiHelper'
 import { response } from '../../test-data/fetch-response'
 
 import './App.scss';
+import bg from '../../images/header-bg.gif'
 
 class App extends Component {
   constructor() {
@@ -23,6 +24,13 @@ class App extends Component {
   }
 
   render() {
+    
+    if (this.state.isGaudy) {
+      document.body.style.backgroundImage = `url(${bg})`
+    } else {
+      document.body.style.backgroundImage = ``
+    }
+
     return (
       <main>
         <Header 
@@ -55,6 +63,8 @@ class App extends Component {
     // this.refreshForeignSet()
     this.setState({ foreignSet: response });
   }
+
+
 
   refreshForeignSet = () => {
     this.markLoadedImagesSeen();
