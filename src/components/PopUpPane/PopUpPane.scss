@@ -1,5 +1,26 @@
 @import '../../styles/variables.scss';
 
+@mixin pop-up-button {
+  align-content: center;
+  background-color: $egg;
+  border: thick double $violet;
+  cursor: pointer;
+  display: flex;
+  color: $violet;
+  font-family: $accent;
+  font-size: 1.2em;
+  justify-content: center;
+  padding: auto;
+  width: min-content;
+  // height: min-content;
+}
+
+@mixin center-column {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
 .pop-module {
   background-color: $egg;
   border-radius: 30px;
@@ -25,14 +46,11 @@
     }
 
     .close {
-      cursor: pointer;
-      display: flex;
+      @include pop-up-button();
       color: $violet;
-      justify-content: center;
-      align-content: center;
-      border: thick double $violet;
-      width: 1.5em;
+      font-size: 1em;
       height: 1.5em;
+      width: 1.5em;
     } 
     
     &.mono-pop {
@@ -41,6 +59,7 @@
       }
       .close {
         border-color: $slate;
+        color: $slate;
       }
     }
   }
@@ -55,5 +74,31 @@
     color: $slate;
   }
 
+  .pop-body {
+    form {
+      @include center-column()
+    }
+    button {
+      @include pop-up-button();
+    }
+    
+    &-mono {
+      @include center-column();
+      
+      form {
+        @include center-column();
+      }
+
+      button {
+        @include pop-up-button;
+        color: $slate;
+        border-color: $slate;
+      }
+    }
+  }
 }
+
+
+
+
 
