@@ -7,25 +7,26 @@ import Header from './Header'
 
 
 describe ('Header', () => {
-  let mockRefresh;
+  let mockRefresh, mockToggle, mockGlitch
 
   beforeEach(()=> {
     mockRefresh = jest.fn()
-    render(<MemoryRouter><Header refresh={mockRefresh}/></MemoryRouter>)
+    mockToggle = jest.fn()
+    mockGlitch = jest.fn()
+    render(
+    <MemoryRouter>
+      <Header 
+        title={['A', 'B', 'S', 'T', 'R', 'A', 'C', 'T', 'I', 'F', 'Y']}
+        toggleGaudy={mockToggle}
+        refresh={mockRefresh}
+        glitch={mockGlitch}
+      />
+    </MemoryRouter>)
   }) 
 
   it ('should display the title of the application', () => {
     expect(screen.getByRole('banner')).toBeInTheDocument()
   })
-
-  it ("'s title should be changing onload, and appear later", () => {
-    const title = screen.queryByText('ABSTRACTIFY')
-    expect(title).not.toBeInTheDocument()
-    setTimeout(() => {
-      expect(title).toBeInTheDocument()
-    }, 3000)
-  })
-
   
   it('should render 3 buttons', () => {
     const buttons = screen.getAllByRole('button')

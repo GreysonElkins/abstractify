@@ -18,6 +18,15 @@ describe('App', () => {
     refreshButton = screen.getByRole('button', { name: "Refresh image set" })
   })
 
+  it("'s title should be changing onload, and appear later", () => {
+    const title = screen.queryByText("ABSTRACTIFY");
+    expect(title).not.toBeInTheDocument();
+    setTimeout(() => {
+      expect(title).toBeInTheDocument();
+    }, 3000);
+  });
+
+
   it('should have a main section', () => {
     const main = screen.getByRole('main')
     expect(main).toBeInTheDocument()
