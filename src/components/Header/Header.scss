@@ -4,6 +4,23 @@
   font-family: $plain-text;
 }
 
+@mixin uniform-button {
+  border: none;
+    background: none;
+    color: $pewter;
+    cursor: pointer;
+    display: inline-block;
+    font-family: $accent;
+    font-size: 1.5em;
+    margin: 0;
+    // padding: 1rem 2rem; 
+    text-decoration: none;
+    text-align: center;
+    transition: background 250ms ease-in-out, 
+                transform 150ms ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
 
 header {
   align-items: center;
@@ -12,16 +29,17 @@ header {
   color: $egg;
   display: flex;
   flex-direction: column;
-  padding: 2em 0 1em 0;
+  margin: 0;
+  padding: .5em 0 0em 0;
   width: 100%;
   
   .title {
     color: $orange-rose;
-    font-family: $title;
-    font-size: 2em;
-    margin: 1em;
-    text-decoration: none;
     cursor: default;
+    font-family: $title;
+    font-size: 4em;
+    margin: 1.5em;
+    text-decoration: none;
   }
   
   nav {
@@ -32,8 +50,8 @@ header {
   
   .toggleLabel {
     color: $pewter;
-    font-size: .6em;
     cursor: default;
+    font-size: .8em;
   }
 
 

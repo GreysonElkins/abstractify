@@ -15,20 +15,3 @@ $accent: 'Baloo Tammudu 2';
   font-family: $plain-text;
 }
 
-@mixin uniform-button {
-  border: none;
-    background: none;
-    color: $pewter;
-    cursor: pointer;
-    display: inline-block;
-    font-family: $accent;
-    font-size: 1rem;
-    margin: 0;
-    padding: 1rem 2rem;
-    text-decoration: none;
-    text-align: center;
-    transition: background 250ms ease-in-out, 
-                transform 150ms ease;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-}
