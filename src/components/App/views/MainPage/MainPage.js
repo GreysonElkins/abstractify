@@ -11,7 +11,7 @@ const imageObjectsToJsx = (images, lockFn) => {
   return images.map(image => {
     return (
       <>
-        <ImagePanel image={image} toggleImageLock={lockFn}/>
+        <ImagePanel key={`image-panel-${image.id}`} image={image} toggleImageLock={lockFn}/>
       </>
     )
   })
@@ -31,7 +31,7 @@ const displayImages = (props) => {
         }
         return set
       }, [])
-    columns[i] = <div className="column" key={i}>{newImgSet}</div>
+    columns[i] = <div className="column" key={`column${i}`}>{newImgSet}</div>
   }, [])  
   return columns
 }

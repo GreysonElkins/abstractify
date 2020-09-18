@@ -76,7 +76,6 @@ class App extends Component {
         <Route exact path="/">
           <MainPage 
             images={this.state.foreignSet} 
-            refresh={this.refreshForeignSet}
             toggleImageLock={this.toggleImageLock}
           />
         </Route>
