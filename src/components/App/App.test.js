@@ -10,9 +10,12 @@ jest.mock('../../ApiHelper/ApiHelper.js')
 
 describe('App', () => {
 
+  let refreshButton
+
   beforeEach(() => {
     getImages.mockResolvedValueOnce(response)
     render(<MemoryRouter><App /></MemoryRouter>)
+    refreshButton = screen.getByRole('button', { name: "Refresh image set" })
   })
 
   it('should have a main section', () => {
@@ -35,19 +38,39 @@ describe('App', () => {
   })
 
   it('should load different images when refresh has been clicked', () => {
-    const button = screen.getByRole('button', { name: "Refresh image set" })
     const imageOne = document.querySelector('img')
-    fireEvent.click(button)
+    fireEvent.click(refreshButton)
     const imageTwo = document.querySelector('img')
     expect(imageOne.id).not.toEqual(imageTwo.id)
   })
+  
+  it('should not replace locked images when refresh is clicked', () => {
+    const imageOne = document.querySelector('img')
+    const sameImageButDom = screen.getByAltText("Photographed by Josh Fields");
+    fireEvent.click(sameImageButDom)
+    fireEvent.click(refreshButton)
+    const imageTwo = document.querySelector('img')
+    expect(imageOne).toEqual(imageTwo)
+  })
+
+  it("should replace locked images on refresh after they're unlocked", () => {
+    const imageOne = document.querySelector("img");
+    const sameImageButDom = screen.getByAltText(
+      "Photographed by Josh Fields"
+    );
+    fireEvent.click(sameImageButDom);
+    fireEvent.click(refreshButton);
+    fireEvent.click(refreshButton);
+    const imageTwo = document.querySelector("img");
+    expect(imageOne).not.toEqual(imageTwo);
+  })
 
   it('should fetch on refresh click if there are no more unseen', () => {
-    const button = screen.getByRole('button', { name: "Refresh image set" })
-    fireEvent.click(button)
-    fireEvent.click(button)
-    fireEvent.click(button)
-    fireEvent.click(button)
+    fireEvent.click(refreshButton)
+    fireEvent.click(refreshButton)
+    fireEvent.click(refreshButton)
+    fireEvent.click(refreshButton)
     expect(getImages).toHaveBeenCalled()
   })
+  
 })

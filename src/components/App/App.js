@@ -41,7 +41,6 @@ class App extends Component {
       }
       return img
     })
-    console.log('lock!')
     this.setState({ foreignSet: update })
   }
 
