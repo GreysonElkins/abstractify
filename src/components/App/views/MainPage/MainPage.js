@@ -3,27 +3,29 @@ import './MainPage.scss'
 
 import ImagePanel from '../../../ImagePanel/ImagePanel'
 
-const ignoreSeenImages = ({ images, refresh }) => {
+const ignoreSeenImages = (images) => {
   return images.filter(image => !image.seen)
 }
 
-const imageObjectsToJsx = (images) => {
+const imageObjectsToJsx = (images, lockFn) => {
   return images.map(image => {
     return (
       <>
-        <ImagePanel image={image} />
-      {/* <img src={padlock}/> */}
+        <ImagePanel image={image} toggleImageLock={lockFn}/>
       </>
     )
   })
 }
 
 const displayImages = (props) => {
-  const images = ignoreSeenImages(props)
-  const imageElements = imageObjectsToJsx(images)
+  // const images = ignoreSeenImages(props)
+  const imagePanels = imageObjectsToJsx(
+    ignoreSeenImages(props.images),
+    props.toggleImageLock
+  );
   const columns = [1, 2, 3, 4, 5]
   columns.forEach((column, i) => {
-    const newImgSet = imageElements.reduce((set, img, j) => {
+    const newImgSet = imagePanels.reduce((set, img, j) => {
         if (j / 4 < column && j / 4 >= i) {
           set.push(img)
         }
