@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom'
+import MutationObserver from "@sheerun/mutationobserver-shim";
+window.MutationObserver = MutationObserver;
 
 import Header from '../Header/Header'
 import MainPage from './views/MainPage/MainPage'
@@ -41,13 +43,19 @@ class App extends Component {
             }}
           ></div>
         )}
-        <Header
-          title={this.state.title}
-          showPopUp={this.showPopUp}
-          refresh={this.refreshForeignSet}
-          isGaudy={this.state.isGaudy}
-          toggleGaudy={this.toggleGaudy}
-          glitch={this.glitchLetter}
+        <Route 
+        // path={['/', '/:anything']}
+          render={({ history }) => {
+            return <Header
+              title={this.state.title}
+              showPopUp={this.showPopUp}
+              refresh={this.refreshForeignSet}
+              isGaudy={this.state.isGaudy}
+              toggleGaudy={this.toggleGaudy}
+              glitch={this.glitchLetter}
+              page={history.location.pathname}
+            />
+          }}
         />
         <Route exact path="/">
           <MainPage
@@ -95,7 +103,7 @@ class App extends Component {
 
   refreshForeignSet = () => {
     this.markLoadedImagesSeen();
-    if (this.checkQuantityUnseen() < 20) {
+    if (this.checkQuantityUnseen() < 20 || this.state.foreignSet.length < 0) {
       getImages().then((images) => {
         this.setState({ foreignSet: images });
       });

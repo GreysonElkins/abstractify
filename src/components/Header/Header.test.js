@@ -7,7 +7,7 @@ import Header from './Header'
 
 
 describe ('Header', () => {
-  let mockRefresh, mockToggle, mockGlitch
+  let mockRefresh, mockToggle, mockGlitch, page
 
   beforeEach(()=> {
     mockRefresh = jest.fn()
@@ -20,6 +20,7 @@ describe ('Header', () => {
         toggleGaudy={mockToggle}
         refresh={mockRefresh}
         glitch={mockGlitch}
+        page={page}
       />
     </MemoryRouter>)
   }) 
@@ -52,5 +53,33 @@ describe ('Header', () => {
     const button = screen.getByRole('button', { name: 'Refresh image set' })
     fireEvent.click(button)
     expect(mockRefresh).toHaveBeenCalled()
+  })
+})
+
+describe('Header on Your-Sets page', () => {
+    let mockRefresh, mockToggle, mockGlitch
+
+  beforeEach(()=> {
+    mockRefresh = jest.fn()
+    mockToggle = jest.fn()
+    mockGlitch = jest.fn()
+  })
+
+  it.skip('should not display refresh or save buttons', () => {
+  render (
+    <MemoryRouter>
+      <Header 
+        title={['A', 'B', 'S', 'T', 'R', 'A', 'C', 'T', 'I', 'F', 'Y']}
+        toggleGaudy={mockToggle}
+        refresh={mockRefresh}
+        glitch={mockGlitch}
+        page="/your-sets"
+      />
+    </MemoryRouter>
+  ) 
+  const about = screen.queryByRole ('button', { name: 'About Abstractify' })
+  const save = screen.queryByRole ('button', { name: 'Save this image set' })
+  expect(about).not.toBeInTheDocument()
+  expect(save).not.toBeInTheDocument()
   })
 })

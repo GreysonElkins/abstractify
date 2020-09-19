@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 import './Header.scss'
 import './toggle.scss'
 
-const Header = ({ title, isGaudy, toggleGaudy, showPopUp, refresh, glitch}) => {
+const Header = ({ title, isGaudy, toggleGaudy, showPopUp, refresh, glitch, page}) => {
     return (
       <header role="heading" className={isGaudy ? "" : "mono"}>
         <div>
@@ -34,23 +34,27 @@ const Header = ({ title, isGaudy, toggleGaudy, showPopUp, refresh, glitch}) => {
           >
             About
           </button>
-          <button
-            title="Refresh image set"
-            onClick={() => {
-              refresh();
-            }}
-          >
-            Refresh
-          </button>
-          <button
-            title="Save this image set"
-            onClick={() => {
-              showPopUp('Save', 2)
-              glitch(true)
-            }}
-          >
-            Save
-          </button>
+          {page !== '/your-sets' 
+            && <>
+              <button
+                title="Refresh image set"
+                onClick={() => {
+                  refresh();
+                }}
+              >
+                Refresh
+              </button>
+              <button
+                title="Save this image set"
+                onClick={() => {
+                  showPopUp('Save', 2)
+                  glitch(true)
+                }}
+              >
+                Save
+              </button>
+            </>
+          }
           <NavLink
             to="/your-sets"
             className="inactive-link"
