@@ -1,7 +1,16 @@
 import React from "react";
 
-const UserPage = () => {
-  return <h1>hello UserPage</h1>;
+import SavedSetCard from '../../../SavedSetCard/SavedSetCard'
+
+const UserPage = (props) => {
+  return <>{cards(props)}</>;
 };
+
+
+const cards = (props) => {
+  return props.imageSets.map((set, i)=> {
+    return <SavedSetCard set={set} key={`set${i}`}/>
+  })
+}
 
 export default UserPage;
