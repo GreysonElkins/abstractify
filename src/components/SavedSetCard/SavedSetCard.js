@@ -9,7 +9,9 @@ const SavedSetCard = (props) => {
     <Link to={`/set/${props.set.id}`} className="saved-card">
       <div>
         <h1>{props.set.title}</h1>
-        <p className="inner-text">Saved on {moment(props.set.created_at).format("MMM DD YYYY")}</p>
+        <p className="inner-text">
+          Saved on {moment(props.set.created_at).format("MMM DD YYYY")}
+        </p>
       </div>
     </Link>
   );

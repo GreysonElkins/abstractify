@@ -120,7 +120,7 @@ describe('App', () => {
       })
       fireEvent.click(saveButton)
       const saveHeader = screen.queryByRole('heading', { name: 'Save' })
-      expect(saveHeader.toBeInTheDocument())
+      expect(saveHeader).toBeInTheDocument()
     })
   })
 })
