@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom'
 import './Header.scss'
 import './toggle.scss'
@@ -72,3 +73,13 @@ const Header = ({ title, isGaudy, toggleGaudy, showPopUp, refresh, glitch, page}
 }
 
 export default Header
+
+Header.propTypes = {
+  title: PropTypes.arrayOf(PropTypes.string),
+  isGaudy: PropTypes.bool.isRequired,
+  toggleGaudy: PropTypes.func.isRequired,
+  showPopUp: PropTypes.func.isRequired,
+  refresh: PropTypes.func.isRequired,
+  glitch: PropTypes.func.isRequired,
+  page: PropTypes.string.isRequired
+}

@@ -2,6 +2,8 @@ import React from 'react';
 import { screen, render, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom'
 import '@testing-library/jest-dom'
+import MutationObserver from "@sheerun/mutationobserver-shim";
+window.MutationObserver = MutationObserver;
 
 import App from './App';
 import { getImages } from '../../ApiHelper/ApiHelper';

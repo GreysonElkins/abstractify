@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom'
-import MutationObserver from "@sheerun/mutationobserver-shim";
-window.MutationObserver = MutationObserver;
+
 
 import Header from '../Header/Header'
 import MainPage from './views/MainPage/MainPage'
@@ -244,19 +243,18 @@ class App extends Component {
   };
 }
 
-  const letterOptions = {
-    0: ["A", "^", "@", "ˆ"],
-    1: ["B", "3", "ß"],
-    2: ["S", "5", "§", "š"],
-    3: ["T", "†", "#"],
-    4: ["R", "®", "&"],
-    5: ["A", "^", "@", "ˆ"],
-    6: ["C", "©", "[", "{", "(", "¢"],
-    7: ["T", "†", "#"],
-    8: ["I", "!", "1", "|", "/", "¦"],
-    9: ["F", "=", "±", "?", "#", "ƒ", "‡"],
-    10: ["Y", "Ÿ", "µ", "¥"],
-  };
+const letterOptions = {
+  0: ["A", "^", "@", "ˆ"],
+  1: ["B", "3", "ß"],
+  2: ["S", "5", "§", "š"],
+  3: ["T", "†", "#"],
+  4: ["R", "®", "&"],
+  5: ["A", "^", "@", "ˆ"],
+  6: ["C", "©", "[", "{", "(", "¢"],
+  7: ["T", "†", "#"],
+  8: ["I", "!", "1", "|", "/", "¦"],
+  9: ["F", "=", "±", "?", "#", "ƒ", "‡"],
+  10: ["Y", "Ÿ", "µ", "¥"],
+};
 
 export default App;
- 
