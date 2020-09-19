@@ -27,35 +27,35 @@ const Header = ({ title, isGaudy, toggleGaudy, showPopUp, refresh, glitch, page}
           >
             Home
           </NavLink>
+          {page !== "/your-sets" && (
+            <button
+              title="Save this image set"
+              onClick={() => {
+                showPopUp("Save", 2);
+                glitch(true);
+              }}
+            >
+              Save
+            </button>
+          )}
           <button
             title="About Abstractify"
             onClick={() => {
-              showPopUp('About', 5)
+              showPopUp("About", 5);
             }}
           >
             About
           </button>
-          {page !== '/your-sets' 
-            && <>
-              <button
-                title="Refresh image set"
-                onClick={() => {
-                  refresh();
-                }}
-              >
-                Refresh
-              </button>
-              <button
-                title="Save this image set"
-                onClick={() => {
-                  showPopUp('Save', 2)
-                  glitch(true)
-                }}
-              >
-                Save
-              </button>
-            </>
-          }
+          {page !== "/your-sets" && (
+            <button
+              title="Refresh image set"
+              onClick={() => {
+                refresh();
+              }}
+            >
+              Refresh
+            </button>
+          )}
           <NavLink
             to="/your-sets"
             className="inactive-link"
