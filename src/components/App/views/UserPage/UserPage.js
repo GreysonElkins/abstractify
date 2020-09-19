@@ -1,9 +1,11 @@
 import React from "react";
 
+import './UserPage.scss'
+
 import SavedSetCard from '../../../SavedSetCard/SavedSetCard'
 
 const UserPage = (props) => {
-  return <>{cards(props)}</>;
+  return <div className="saved-cards">{cards(props)}</div>;
 };
 
 
