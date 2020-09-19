@@ -7,12 +7,13 @@ import Header from './Header'
 
 
 describe ('Header', () => {
-  let mockRefresh, mockToggle, mockGlitch, page
+  let mockRefresh, mockToggle, mockGlitch, mockShow
 
   beforeEach(()=> {
     mockRefresh = jest.fn()
     mockToggle = jest.fn()
     mockGlitch = jest.fn()
+    mockShow = jest.fn()
     render(
     <MemoryRouter>
       <Header 
@@ -20,7 +21,9 @@ describe ('Header', () => {
         toggleGaudy={mockToggle}
         refresh={mockRefresh}
         glitch={mockGlitch}
-        page={page}
+        isGaudy={true}
+        page='/'
+        showPopUp={mockShow}
       />
     </MemoryRouter>)
   }) 
@@ -54,29 +57,41 @@ describe ('Header', () => {
     fireEvent.click(button)
     expect(mockRefresh).toHaveBeenCalled()
   })
+
+  it('should try to show popup when about or save are clicked', () => {
+    const about = screen.getByRole('button', { name: 'About Abstractify'})
+    const save = screen.getByRole('button', { name: 'Save this image set'})
+    fireEvent.click(about)
+    expect(mockShow).toHaveBeenCalled()
+    fireEvent.click(save)
+    expect(mockShow).toHaveBeenCalledTimes(2)
+  })
 })
 
 describe('Header on Your-Sets page', () => {
-    let mockRefresh, mockToggle, mockGlitch
+    let mockRefresh, mockToggle, mockGlitch, mockShow
 
   beforeEach(()=> {
     mockRefresh = jest.fn()
     mockToggle = jest.fn()
     mockGlitch = jest.fn()
+    mockShow = jest.fn()
   })
 
   it.skip('should not display refresh or save buttons', () => {
-  render (
+  render(
     <MemoryRouter>
-      <Header 
-        title={['A', 'B', 'S', 'T', 'R', 'A', 'C', 'T', 'I', 'F', 'Y']}
+      <Header
+        title={["A", "B", "S", "T", "R", "A", "C", "T", "I", "F", "Y"]}
         toggleGaudy={mockToggle}
         refresh={mockRefresh}
         glitch={mockGlitch}
+        showPopUp={mockShow}
+        isGaudy={true}
         page="/your-sets"
       />
     </MemoryRouter>
-  ) 
+  ); 
   const about = screen.queryByRole ('button', { name: 'About Abstractify' })
   const save = screen.queryByRole ('button', { name: 'Save this image set' })
   expect(about).not.toBeInTheDocument()

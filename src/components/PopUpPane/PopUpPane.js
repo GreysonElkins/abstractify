@@ -102,7 +102,7 @@ class PopUpPane extends Component {
 export default PopUpPane;
 
 PopUpPane.propTypes = {
-  show: PropTypes.func.isRequired,
+  show: PropTypes.string.isRequired,
   hide: PropTypes.func.isRequired,
   save: PropTypes.func,
   isGaudy: PropTypes.bool.isRequired
