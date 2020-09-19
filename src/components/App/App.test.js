@@ -123,4 +123,31 @@ describe('App', () => {
       expect(saveHeader).toBeInTheDocument()
     })
   })
+
+  describe('Saving sets', () => {
+
+    it('should be able to show to a saved set after a different set has been loaded', 
+      () => {
+        const rememberedImages = document.querySelectorAll('img')
+        const headerSaveButton = screen.getByRole('button', {
+          name: 'Save this image set'
+        })
+        fireEvent.click(headerSaveButton)
+        const input = screen.getByRole('textbox')
+        fireEvent.change(input, { target: { value: 'Test Set' }})
+        const saveCta = screen.getByRole('button', { name: 'Save' })
+        fireEvent.click(saveCta)
+        fireEvent.click(refreshButton)
+        const currentImages = document.querySelectorAll('img')
+        expect(currentImages).not.toBe(rememberedImages)
+
+        
+        const yourSets = screen.getByRole('link', { name: 'See your saved image sets' })
+        fireEvent.click(yourSets)
+        const savedCard = screen.getByText('Test Set')
+        fireEvent.click(savedCard)
+        const currentImagesTwo = document.querySelectorAll('img')
+        expect(rememberedImages).toEqual(currentImagesTwo)
+      })
+  })
 })
