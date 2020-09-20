@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 
 
 import Header from '../Header/Header'
@@ -20,7 +20,7 @@ class App extends Component {
       foreignSet: [],
       savedSets: [],
       popUpTrigger: "",
-      isGaudy: true,
+      isGaudy: true
     };
   }
 
@@ -43,7 +43,6 @@ class App extends Component {
           ></div>
         )}
         <Route 
-        // path={['/', '/:anything']}
           render={({ history }) => {
             return <Header
               title={this.state.title}
@@ -56,25 +55,50 @@ class App extends Component {
             />
           }}
         />
-        <Route exact path="/">
-          <MainPage
-            images={this.state.foreignSet}
-            toggleImageLock={this.toggleImageLock}
-          />
-        </Route>
-        <Route 
-          exact path="/set/:id" 
-          render={({ match }) => {
-            return <MainPage
-              images={this.presentSavedImages(match.params.id)}
+        <Switch>
+          <Route exact path="/">
+            <MainPage
+              images={this.state.foreignSet}
               toggleImageLock={this.toggleImageLock}
             />
-          }}
-        >
-        </Route>
-        <Route exact path="/your-sets">
-          <UserPage imageSets={this.state.savedSets} />
-        </Route>
+          </Route>
+          <Route 
+            exact path="/set/:id" 
+            render={({ match }) => {
+              if (this.presentSavedImages(match.params.id)) {
+                return <MainPage
+                  images={this.presentSavedImages(match.params.id)}
+                  toggleImageLock={this.toggleImageLock}
+                />
+              } else {
+                return <PopUpPane
+                  show={"Sorry"}
+                  hide={this.hidePopUp}
+                  errorMessage={"That set wasn't found"}
+                  isGaudy={this.state.isGaudy}
+                />;
+              }
+            }}
+          >
+          </Route>
+          <Route exact path="/your-sets">
+            <UserPage imageSets={this.state.savedSets} />
+          </Route>
+          <Route 
+            // path="/*" 
+            render={() => {
+              return (
+                <PopUpPane
+                  show={"Sorry"}
+                  hide={this.hidePopUp}
+                  errorMessage={"That page does not exist"}
+                  isGaudy={this.state.isGaudy}
+                />
+              )
+            }
+          }>
+          </Route>
+        </Switch>
         {this.state.popUpTrigger === "About" && (
           <PopUpPane
             show={this.state.popUpTrigger}
@@ -193,9 +217,13 @@ class App extends Component {
   }
 
   presentSavedImages = (id) => {
-    const setInQuestion = this.state.savedSets.find(set => set.id === parseInt(id))
-    const images = this.state.foreignSet.filter(img => setInQuestion.images.includes(img.id))
-    return images
+      const setInQuestion = this.state.savedSets.find(set => set.id === parseInt(id))
+      if (setInQuestion) {
+        const images = this.state.foreignSet.filter(img => setInQuestion.images.includes(img.id))
+        return images
+      } else {
+        return undefined
+      }
   }
 
   loadTitle = () => {
