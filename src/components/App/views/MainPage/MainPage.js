@@ -12,8 +12,16 @@ const MainPage = (props) => {
   );
 };
 
-const ignoreSeenImages = (images) => {
-  return images.filter(image => !image.seen || image.lockedIndex > -1)
+const sortImages = (images) => {
+  const unseenImages = images.filter(image => !image.seen || image.lockedIndex > -1)
+  const lockedImages = unseenImages.filter(image => image.lockedIndex > -1)
+
+  lockedImages.forEach(image => {
+    const originalPosition = unseenImages.indexOf(image)
+    unseenImages.splice(image.lockedIndex, 0, ...unseenImages.splice(originalPosition, 1))
+  })
+
+  return unseenImages
 }
 
 const imageObjectsToJsx = (images, lockFn) => {
@@ -27,7 +35,7 @@ const imageObjectsToJsx = (images, lockFn) => {
 }
 
 const displayImages = (props) => {
-  const images = ignoreSeenImages(props.images)
+  const images = sortImages(props.images)
   const imagePanels = imageObjectsToJsx(
     images,
     props.toggleImageLock
