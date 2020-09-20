@@ -4,7 +4,7 @@ import { MemoryRouter } from 'react-router-dom'
 import '@testing-library/jest-dom'
 
 import ImagePanel from './ImagePanel'
-import { response }from '../../test-data/fetch-response'
+import { response } from '../../test-data/cleaned-response'
 
 describe('Image Panel', () => {
   let mockLock, image; 
