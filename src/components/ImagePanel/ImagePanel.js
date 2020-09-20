@@ -31,6 +31,7 @@ class ImagePanel extends Component {
         src={this.props.image.url}
         id={this.props.image.id}
         onMouseEnter={() => this.setState({ hover: true })}
+        onClick={() => this.props.toggleImageLock(this.props.image.id)}
         />
         )
         
