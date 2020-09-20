@@ -1,19 +1,21 @@
 import React from 'react';
-import { screen, render, fireEvent } from '@testing-library/react';
+import { screen, render, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom'
 import '@testing-library/jest-dom'
+import MutationObserver from "@sheerun/mutationobserver-shim";
+window.MutationObserver = MutationObserver;
 
 import App from './App';
 import { getImages } from '../../ApiHelper/ApiHelper';
-import { response } from '../../test-data/fetch-response'
+import { response, responseTwo } from '../../test-data/cleaned-response'
 jest.mock('../../ApiHelper/ApiHelper.js')
 
 describe('App', () => {
 
   let refreshButton
 
-  beforeEach(() => {
-    getImages.mockResolvedValueOnce(response)
+  beforeEach( async () => {
+    await getImages.mockResolvedValueOnce(response)
     render(<MemoryRouter><App /></MemoryRouter>)
     refreshButton = screen.getByRole('button', { name: "Refresh image set" })
   })
@@ -43,7 +45,7 @@ describe('App', () => {
       expect(imgs).not.toHaveLength(0)
     })
   
-    it.skip('should fetch images on load', () => {
+    it('should fetch images on load', () => {
       expect(getImages).toHaveBeenCalled()
     })
   })
@@ -56,32 +58,34 @@ describe('App', () => {
       expect(imageOne.id).not.toEqual(imageTwo.id)
     })
     
-    it('should not replace locked images when refresh is clicked', () => {
+    it('should not replace locked images when refresh is clicked', async () => {
       const imageOne = document.querySelector('img')
       const sameImageButDom = screen.getByAltText("Photographed by Josh Fields");
       fireEvent.click(sameImageButDom)
-      fireEvent.click(refreshButton)
+      await fireEvent.click(refreshButton)
       const imageTwo = document.querySelector('img')
       expect(imageOne).toEqual(imageTwo)
     })
   
-    it("should replace locked images on refresh after they're unlocked", () => {
+    it("should replace locked images on refresh after they're unlocked", async () => {
       const imageOne = document.querySelector("img");
       const sameImageButDom = screen.getByAltText(
         "Photographed by Josh Fields"
       );
       fireEvent.click(sameImageButDom);
       fireEvent.click(refreshButton);
-      fireEvent.click(refreshButton);
+      getImages.mockResolvedValue(responseTwo)
+      await waitFor(() => fireEvent.click(refreshButton))
       const imageTwo = document.querySelector("img");
       expect(imageOne).not.toEqual(imageTwo);
     })
   
-    it('should fetch on refresh click if there are no more unseen', () => {
+    it('should fetch on refresh click if there are no more unseen', async () => {
       fireEvent.click(refreshButton)
       fireEvent.click(refreshButton)
       fireEvent.click(refreshButton)
-      fireEvent.click(refreshButton)
+      getImages.mockResolvedValue(responseTwo)
+      await waitFor(() => fireEvent.click(refreshButton))
       expect(getImages).toHaveBeenCalled()
     })
   })
@@ -120,7 +124,35 @@ describe('App', () => {
       })
       fireEvent.click(saveButton)
       const saveHeader = screen.queryByRole('heading', { name: 'Save' })
-      expect(saveHeader.toBeInTheDocument())
+      expect(saveHeader).toBeInTheDocument()
     })
+  })
+
+  describe('Saving sets', () => {
+
+    it('should be able to show to a saved set after a different set has been loaded', 
+      async () => {
+        const rememberedImages = document.querySelectorAll('img')
+        const headerSaveButton = screen.getByRole('button', {
+          name: 'Save this image set'
+        })
+        fireEvent.click(headerSaveButton)
+        const input = screen.getByRole('textbox')
+        fireEvent.change(input, { target: { value: 'Test Set' }})
+        const saveCta = screen.getByRole('button', { name: 'Save' })
+        fireEvent.click(saveCta)
+        await waitFor(() =>  getImages.mockResolvedValueOnce(responseTwo))
+        fireEvent.click(refreshButton)
+        const currentImages = document.querySelectorAll('img')
+        expect(currentImages).not.toBe(rememberedImages)
+
+        
+        const yourSets = screen.getByRole('link', { name: 'See your saved image sets' })
+        fireEvent.click(yourSets)
+        const savedCard = screen.getByText('Test Set')
+        fireEvent.click(savedCard)
+        const currentImagesTwo = document.querySelectorAll('img')
+        expect(rememberedImages).toEqual(currentImagesTwo)
+      })
   })
 })

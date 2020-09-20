@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import padlock from '../../images/padlock.svg'
 import unlock from '../../images/unlock.svg'
 
@@ -49,3 +50,8 @@ class ImagePanel extends Component {
 }
 
 export default ImagePanel
+
+ImagePanel.propTypes = {
+  image: PropTypes.object.isRequired,
+  toggleImageLock: PropTypes.func.isRequired
+}

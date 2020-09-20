@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom'
 
+
 import Header from '../Header/Header'
 import MainPage from './views/MainPage/MainPage'
 import UserPage from './views/UserPage/UserPage'
 import PopUpPane from '../PopUpPane/PopUpPane'
 import { getImages } from '../../ApiHelper/ApiHelper'
-import { response } from '../../test-data/fetch-response'
+import { response } from '../../test-data/cleaned-response'
 
 import './App.scss';
 import bg from '../../images/header-bg.gif'
 
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       title: [],
       foreignSet: [],
@@ -32,23 +33,28 @@ class App extends Component {
 
     return (
       <main>
-      {this.state.popUpTrigger 
-        && <div 
-          className="fade"
-          onClick={() => {
-            const fix = this.state.popUpTrigger === "About" ? 5 : 2;
-            this.hidePopUp(fix)
+        {this.state.popUpTrigger && (
+          <div
+            className="fade"
+            onClick={() => {
+              const fix = this.state.popUpTrigger === "About" ? 5 : 2;
+              this.hidePopUp(fix);
+            }}
+          ></div>
+        )}
+        <Route 
+        // path={['/', '/:anything']}
+          render={({ history }) => {
+            return <Header
+              title={this.state.title}
+              showPopUp={this.showPopUp}
+              refresh={this.refreshForeignSet}
+              isGaudy={this.state.isGaudy}
+              toggleGaudy={this.toggleGaudy}
+              glitch={this.glitchLetter}
+              page={history.location.pathname}
+            />
           }}
-        >
-        </div>
-      }
-        <Header
-          title={this.state.title}
-          showPopUp={this.showPopUp}
-          refresh={this.refreshForeignSet}
-          isGaudy={this.state.isGaudy}
-          toggleGaudy={this.toggleGaudy}
-          glitch={this.glitchLetter}
         />
         <Route exact path="/">
           <MainPage
@@ -56,28 +62,34 @@ class App extends Component {
             toggleImageLock={this.toggleImageLock}
           />
         </Route>
-        <Route exact path="/set/:id">
-          <MainPage />
+        <Route 
+          exact path="/set/:id" 
+          render={({ match }) => {
+            return <MainPage
+              images={this.presentSavedImages(match.params.id)}
+              toggleImageLock={this.toggleImageLock}
+            />
+          }}
+        >
         </Route>
         <Route exact path="/your-sets">
-          <UserPage />
+          <UserPage imageSets={this.state.savedSets} />
         </Route>
         {this.state.popUpTrigger === "About" && (
-          <PopUpPane 
-            show={this.state.popUpTrigger} 
+          <PopUpPane
+            show={this.state.popUpTrigger}
             hide={this.hidePopUp}
             isGaudy={this.state.isGaudy}
-            />
-            )}
+          />
+        )}
         {this.state.popUpTrigger === "Save" && (
-          <PopUpPane 
-            show={this.state.popUpTrigger} 
+          <PopUpPane
+            show={this.state.popUpTrigger}
             hide={this.hidePopUp}
             save={this.saveSet}
             isGaudy={this.state.isGaudy}
           />
         )}
-        
       </main>
     );
   }
@@ -90,7 +102,7 @@ class App extends Component {
 
   refreshForeignSet = () => {
     this.markLoadedImagesSeen();
-    if (this.checkQuantityUnseen() < 20) {
+    if (this.checkQuantityUnseen() < 20 || this.state.foreignSet.length < 0) {
       getImages().then((images) => {
         this.setState({ foreignSet: images });
       });
@@ -109,7 +121,7 @@ class App extends Component {
     const loaded_imgs = document.querySelectorAll("img");
     const visibleIds = [];
     loaded_imgs.forEach((node) => {
-      visibleIds.push(node.id);
+      visibleIds.push(parseInt(node.id));
     });
     return visibleIds
   }
@@ -118,7 +130,7 @@ class App extends Component {
     const matchIds = this.identifyImagesOnPage()
 
     const updateSet = this.state.foreignSet.map((img) => {
-      if (matchIds.includes(img.id.toString()) && !img.locked) {
+      if (matchIds.includes(img.id) && !img.locked) {
         img.seen = true;
       }
       return img;
@@ -140,6 +152,7 @@ class App extends Component {
   saveSet = (provided_title) => {
     const visibleIds = this.identifyImagesOnPage()
     const newSet = {
+      id: this.findSetId(),
       title: provided_title,
       images: this.state.foreignSet.filter(img => {
           if (visibleIds.includes(img.id)) return img
@@ -147,7 +160,18 @@ class App extends Component {
       created_at: Date.now()
     }
     const update = [...this.state.savedSets, newSet]
-    this.setState({savedSets: update})
+    this.setState({ savedSets: update })
+  }
+
+  findSetId = () => {
+    debugger
+    const savedSets = this.state.savedSets
+    if (savedSets.length > 0) {
+      let sorted = this.state.savedSets.sort((a, b) => b.id - a.id)
+      return sorted[0].id + 1
+    } else {
+      return 1 
+    }
   }
 
   showPopUp = (key, num) => {
@@ -158,6 +182,17 @@ class App extends Component {
   hidePopUp = (num) => {
     this.glitchLetter(true, num)
     this.setState({ popUpTrigger: '' })
+  }
+
+  presentSavedImages = (id) => {
+    const setInQuestion = this.state.savedSets.find(set => set.id === parseInt(id))
+    const images = setInQuestion.images.map(img => {
+      img.seen = false
+      img.lock = false
+      return img
+    })
+
+    return images
   }
 
   loadTitle = () => {
@@ -208,19 +243,18 @@ class App extends Component {
   };
 }
 
-  const letterOptions = {
-    0: ["A", "^", "@", "ˆ"],
-    1: ["B", "3", "ß"],
-    2: ["S", "5", "§", "š"],
-    3: ["T", "†", "#"],
-    4: ["R", "®", "&"],
-    5: ["A", "^", "@", "ˆ"],
-    6: ["C", "©", "[", "{", "(", "¢"],
-    7: ["T", "†", "#"],
-    8: ["I", "!", "1", "|", "/", "¦"],
-    9: ["F", "=", "±", "?", "#", "ƒ", "‡"],
-    10: ["Y", "Ÿ", "µ", "¥"],
-  };
+const letterOptions = {
+  0: ["A", "^", "@", "ˆ"],
+  1: ["B", "3", "ß"],
+  2: ["S", "5", "§", "š"],
+  3: ["T", "†", "#"],
+  4: ["R", "®", "&"],
+  5: ["A", "^", "@", "ˆ"],
+  6: ["C", "©", "[", "{", "(", "¢"],
+  7: ["T", "†", "#"],
+  8: ["I", "!", "1", "|", "/", "¦"],
+  9: ["F", "=", "±", "?", "#", "ƒ", "‡"],
+  10: ["Y", "Ÿ", "µ", "¥"],
+};
 
 export default App;
- 

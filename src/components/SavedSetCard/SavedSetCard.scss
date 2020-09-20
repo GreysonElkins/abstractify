@@ -1,0 +1,22 @@
+@import '../../styles/variables.scss';
+
+.saved-card {
+  background-color: $violet;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  margin: 2em;
+  padding: 2em;
+  text-decoration: none;
+
+  h1{
+    color: $orange-rose;
+    font-family: $title;
+  }
+
+  .inner-text {
+    color: $pewter;
+    font-family: $plain-text;
+  }
+}

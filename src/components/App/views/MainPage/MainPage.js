@@ -1,7 +1,16 @@
 import React from "react";
+import PropTypes from 'prop-types'
 import './MainPage.scss'
 
 import ImagePanel from '../../../ImagePanel/ImagePanel'
+
+const MainPage = (props) => {
+  return (
+    <div className="imageContainer" key="container">
+      {displayImages(props)}
+    </div>
+  );
+};
 
 const ignoreSeenImages = (images) => {
   return images.filter(image => !image.seen)
@@ -36,12 +45,9 @@ const displayImages = (props) => {
   return columns
 }
 
-const MainPage = (props) => {
-  return (
-    <div className="imageContainer" key="container">
-      {displayImages(props)}
-    </div>
-  )
-};
-
 export default MainPage;
+
+MainPage.propTypes = {
+  images: PropTypes.arrayOf(PropTypes.object).isRequired,
+  toggleImageLock: PropTypes.func.isRequired
+}

@@ -1,9 +1,10 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom'
 import './Header.scss'
 import './toggle.scss'
 
-const Header = ({ title, isGaudy, toggleGaudy, showPopUp, refresh, glitch}) => {
+const Header = ({ title, isGaudy, toggleGaudy, showPopUp, refresh, glitch, page}) => {
     return (
       <header role="heading" className={isGaudy ? "" : "mono"}>
         <div>
@@ -26,31 +27,35 @@ const Header = ({ title, isGaudy, toggleGaudy, showPopUp, refresh, glitch}) => {
           >
             Home
           </NavLink>
+          {page !== "/your-sets" && (
+            <button
+              title="Save this image set"
+              onClick={() => {
+                showPopUp("Save", 2);
+                glitch(true);
+              }}
+            >
+              Save
+            </button>
+          )}
           <button
             title="About Abstractify"
             onClick={() => {
-              showPopUp('About', 5)
+              showPopUp("About", 5);
             }}
           >
             About
           </button>
-          <button
-            title="Refresh image set"
-            onClick={() => {
-              refresh();
-            }}
-          >
-            Refresh
-          </button>
-          <button
-            title="Save this image set"
-            onClick={() => {
-              showPopUp('Save', 2)
-              glitch(true)
-            }}
-          >
-            Save
-          </button>
+          {page !== "/your-sets" && (
+            <button
+              title="Refresh image set"
+              onClick={() => {
+                refresh();
+              }}
+            >
+              Refresh
+            </button>
+          )}
           <NavLink
             to="/your-sets"
             className="inactive-link"
@@ -68,3 +73,13 @@ const Header = ({ title, isGaudy, toggleGaudy, showPopUp, refresh, glitch}) => {
 }
 
 export default Header
+
+Header.propTypes = {
+  title: PropTypes.arrayOf(PropTypes.string),
+  isGaudy: PropTypes.bool.isRequired,
+  toggleGaudy: PropTypes.func.isRequired,
+  showPopUp: PropTypes.func.isRequired,
+  refresh: PropTypes.func.isRequired,
+  glitch: PropTypes.func.isRequired,
+  page: PropTypes.string.isRequired
+}

@@ -1,7 +1,20 @@
 import React from "react";
+import PropTypes from 'prop-types'
+import './UserPage.scss'
+import SavedSetCard from '../../../SavedSetCard/SavedSetCard'
 
-const UserPage = () => {
-  return <h1>hello UserPage</h1>;
+const UserPage = (props) => {
+  return <div className="saved-cards">{cards(props)}</div>;
 };
 
+const cards = (props) => {
+  return props.imageSets.map((set, i)=> {
+    return <SavedSetCard set={set} key={`set${i}`}/>
+  })
+}
+
 export default UserPage;
+
+UserPage.propTypes = {
+  imageSets: PropTypes.arrayOf(PropTypes.object).isRequired
+}

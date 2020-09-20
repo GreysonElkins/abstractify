@@ -4,7 +4,6 @@ import { MemoryRouter } from 'react-router-dom'
 import '@testing-library/jest-dom'
 
 import PopUpPane from './PopUpPane'
-let mockHide, mockSaveSet
 
 describe('About PopUpPane', () => {
   let mockHide, mockSaveSet
@@ -18,6 +17,7 @@ describe('About PopUpPane', () => {
           show='About' 
           hide={mockHide}
           save={mockSaveSet}
+          isGaudy={true}
         />
       </MemoryRouter>
     )
@@ -62,6 +62,7 @@ describe('Save PopUpPane', () => {
           show='Save' 
           hide={mockHide}
           save={mockSaveSet}
+          isGaudy={true}
         />
       </MemoryRouter>
     )

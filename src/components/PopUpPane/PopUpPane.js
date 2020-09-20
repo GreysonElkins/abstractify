@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types'
 import './PopUpPane.scss'
 
 class PopUpPane extends Component {
@@ -99,3 +100,10 @@ class PopUpPane extends Component {
 }
 
 export default PopUpPane;
+
+PopUpPane.propTypes = {
+  show: PropTypes.string.isRequired,
+  hide: PropTypes.func.isRequired,
+  save: PropTypes.func,
+  isGaudy: PropTypes.bool.isRequired
+}

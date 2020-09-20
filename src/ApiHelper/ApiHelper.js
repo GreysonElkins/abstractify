@@ -39,8 +39,8 @@ export const getImages = () => {
           pages.unshift(imageSet.next_page);
           return cleanPhotos(imageSet.photos);
         } else {
-          return `Something went wrong while
-         getting the images, error: ${res.status}`;
+          return 'Something went wrong while' + 
+          ` getting the images, error: ${res.status}`;
         }
       });
   } catch (error) {
