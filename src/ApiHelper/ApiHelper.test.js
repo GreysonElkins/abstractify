@@ -10,9 +10,10 @@ window.MutationObserver = MutationObserver;
 
 
 describe('API functions', () => {
-  let header, mockResponse
+  let header, mockResponse, mockErrorHandler
 
   beforeEach(() => {
+    mockErrorHandler = jest.fn()
     mockResponse = {
       ok: true,
       json: () => {
@@ -56,15 +57,14 @@ describe('API functions', () => {
     expect(result).toEqual([response[0], response[1]])
   })
 
-  it(`should return an error if the response isn't ok`, async () => {
+  it(`should run an error handler if the response isn't ok`, async () => {
     global.fetch.mockResolvedValueOnce({
       ok: false,
       json: () => {
         return "this isn't a thing"
-      },
-      status: 'I WAS BAD'
+      }
     })
-    const badResult = await getImages()
-    expect(badResult).toEqual('Something went wrong while getting the images, error: I WAS BAD')
+    const badResult = await getImages(mockErrorHandler)
+    expect(mockErrorHandler).toHaveBeenCalled()
   })
 })

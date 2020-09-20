@@ -6,7 +6,7 @@ import Header from '../Header/Header'
 import MainPage from './views/MainPage/MainPage'
 import UserPage from './views/UserPage/UserPage'
 import PopUpPane from '../PopUpPane/PopUpPane'
-import { getImages } from '../../ApiHelper/ApiHelper'
+import { getImages, cleanPhotos } from '../../ApiHelper/ApiHelper'
 import { response } from '../../test-data/cleaned-response'
 
 import './App.scss';
@@ -20,7 +20,8 @@ class App extends Component {
       foreignSet: [],
       savedSets: [],
       popUpTrigger: "",
-      isGaudy: true
+      isGaudy: true,
+      api_error: ''
     };
   }
 
@@ -38,7 +39,7 @@ class App extends Component {
             className="fade"
             onClick={() => {
               const fix = this.state.popUpTrigger === "About" ? 5 : 2;
-              this.hidePopUp(fix);
+              if(!this.state.api_error) this.hidePopUp(fix);
             }}
           ></div>
         )}
@@ -114,26 +115,73 @@ class App extends Component {
             isGaudy={this.state.isGaudy}
           />
         )}
+        {this.state.popUpTrigger === "Save" && (
+          <PopUpPane
+            show={this.state.popUpTrigger}
+            hide={this.hidePopUp}
+            save={this.saveSet}
+            isGaudy={this.state.isGaudy}
+          />
+        )}
+        {this.state.api_error && (
+          <PopUpPane
+            show={this.state.popUpTrigger}
+            errorMessage={this.state.api_error}
+            hide={this.hidePopUp}
+            save={this.saveSet}
+            isGaudy={this.state.isGaudy}
+          />
+        )}
       </main>
     );
   }
 
   componentDidMount() {
-    this.loadTitle();
-    // this.refreshForeignSet()
-    this.setState({ foreignSet: response });
+    this.loadTitle()
+    this.refreshForeignSet()
+    // this.setState({ foreignSet: response });
   }
 
   refreshForeignSet = () => {
     this.markLoadedImagesSeen();
     if (this.checkQuantityUnseen() < 20 || this.state.foreignSet.length < 0) {
-      getImages().then((images) => {
-        const updatedSet = [...this.state.foreignSet, ...images]
-        this.setState({ foreignSet: updatedSet });
-      });
+      getImages(this.handleApiScrewUPs).then((serverData) => {
+        if (serverData) {
+          const updatedSet = [...this.state.foreignSet, ...serverData]
+          this.setState({ foreignSet: updatedSet });
+        } 
+      })
     }
     this.glitchLetter(true);
   };
+
+  handleApiScrewUPs = (api_response) => {
+    if (api_response.status === 401) {
+      this.setState({
+        popUpTrigger: "Server error 401",
+        api_error: `We aren't able to authorize with the server, please 
+                  check back later, or if running locally, see the ReadMe.`,
+      });
+    } else if (api_response.status === 403) {
+      this.setState({
+        popUpTrigger: "Server error 403",
+        api_error: `The authorization key you provided isn't being 
+                  recognized, please check your credentials`,
+      });
+    } else if (api_response.message) {
+      this.setState({
+        popUpTrigger: "Error",
+        api_error: api_response.message,
+      });
+    } else {
+      this.setState({
+        popUpTrigger: `Server error ${api_response.status} `,
+        api_error:
+          "Something unexpected happened, please check" +
+          "Pexels API documentation for more information",
+      });
+    }
+  }
 
   checkQuantityUnseen = () => {
     return this.state.foreignSet.reduce((unseenQty, img) => {
