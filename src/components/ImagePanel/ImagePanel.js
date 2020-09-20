@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import padlock from '../../images/padlock.svg'
 import unlock from '../../images/unlock.svg'
 
+import './ImagePanel.scss'
+
 class ImagePanel extends Component {
   constructor(props) {
     super(props)
@@ -13,37 +15,56 @@ class ImagePanel extends Component {
 
   fade() {
     if (this.state.hover) {
-      return 0.2
+      return 0.8
     } else {
       return 1
     }
   }
 
   render() {
+    const image = (
+      <img
+        style={{ opacity: this.fade() }}
+        className="image"
+        key={this.props.image.id}
+        alt={`Photographed by ${this.props.image.photographer.name}`}
+        src={this.props.image.url}
+        id={this.props.image.id}
+        onMouseEnter={() => this.setState({ hover: true })}
+        onClick={() => this.props.toggleImageLock(this.props.image.id)}
+        />
+        )
+        
+        const hoverImage = () => {
+          if (this.state.hover) {
+            return (
+              <div 
+              className="hover-container"
+              onMouseLeave={() => this.setState({ hover: false })}
+              onClick={() => this.props.toggleImageLock(this.props.image.id)}
+              >
+              <img
+                id={`${this.props.image.id}-lock`} 
+                className="lock"
+                title="Prevent this image from reloading"
+                key={`${this.props.image.id}-lock`}
+                src={this.props.image.lockedIndex > -1 ? padlock : unlock}
+                alt={this.props.image.lockedIndex > -1 ? 'A locked padlock icon' : 'An unlocked padlock icon'} 
+                />
+              <p className="photo-credit">
+                {`Photographed by ${this.props.image.photographer.name}`}
+              </p>
+                {image}
+            </div>
+          ) 
+        } else {
+          return image
+        }
+    }
+
     return (
       <>
-        {/* <div className="panel"> */}
-          <img
-            style={{opacity: this.fade()}}
-            className="image"
-            key={this.props.image.id}
-            alt={`Photographed by ${this.props.image.photographer.name}`}
-            src={this.props.image.url}
-            id={this.props.image.id}
-            onMouseEnter={() => this.setState({hover: true})}
-            onMouseLeave={() => this.setState({hover: false})}
-            onClick={() => this.props.toggleImageLock(this.props.image.id)}
-          />
-          {this.state.hover &&
-            <img 
-              id={`${this.props.image.id}-lock`} 
-              className="lock"
-              title="Prevent this image from reloading"
-              key={`${this.props.image.id}-lock`}
-              src={this.props.image.locked ? padlock : unlock}
-              alt={this.props.image.locked ? 'A locked padlock icon' : 'An unlocked padlock icon'} 
-            />
-          }
+        {hoverImage()}
       </>
     ); 
   }

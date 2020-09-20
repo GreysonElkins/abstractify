@@ -21,19 +21,30 @@
       width: 100%;
       z-index: 2;
     }
-    
+
+    .hover-container {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+    .photo-credit {
+      cursor: pointer;
+      font-size: .8em;
+      position: relative;
+      margin: .2em;
+      z-index: 3;
+    }
+
     .lock {
+      cursor: pointer;
+      margin: .2em;
       position: relative;
       z-index: 3;
       width: 3em;
-      top: -5em;
-      left: 40%;
-      cursor: pointer;
     }
     
     .image {
       position: relative;
-      margin-bottom: -3em; 
       z-index: 0;
       width: 100%;
       cursor: pointer;

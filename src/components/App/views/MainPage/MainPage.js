@@ -12,8 +12,18 @@ const MainPage = (props) => {
   );
 };
 
-const ignoreSeenImages = (images) => {
-  return images.filter(image => !image.seen)
+const sortImages = (images) => {
+  const unseenImages = images.filter(image => parseInt(image.id) && 
+  (!image.seen || image.lockedIndex > -1))
+  const lockedImages = unseenImages.filter(image => image.lockedIndex > -1)
+  .sort((a, b) => a.lockedIndex - b.lockedIndex)
+  
+  lockedImages.forEach(image => {
+    const originalPosition = unseenImages.indexOf(image)
+    unseenImages.splice(image.lockedIndex, 0, ...unseenImages.splice(originalPosition, 1))
+  })
+
+  return unseenImages
 }
 
 const imageObjectsToJsx = (images, lockFn) => {
@@ -27,7 +37,7 @@ const imageObjectsToJsx = (images, lockFn) => {
 }
 
 const displayImages = (props) => {
-  const images = ignoreSeenImages(props.images)
+  const images = sortImages(props.images)
   const imagePanels = imageObjectsToJsx(
     images,
     props.toggleImageLock
@@ -48,6 +58,6 @@ const displayImages = (props) => {
 export default MainPage;
 
 MainPage.propTypes = {
-  images: PropTypes.arrayOf(PropTypes.object).isRequired,
+  images: PropTypes.array.isRequired,
   toggleImageLock: PropTypes.func.isRequired
 }

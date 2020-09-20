@@ -104,7 +104,8 @@ class App extends Component {
     this.markLoadedImagesSeen();
     if (this.checkQuantityUnseen() < 20 || this.state.foreignSet.length < 0) {
       getImages().then((images) => {
-        this.setState({ foreignSet: images });
+        const updatedSet = [...this.state.foreignSet, ...images]
+        this.setState({ foreignSet: updatedSet });
       });
     }
     this.glitchLetter(true);
@@ -130,7 +131,7 @@ class App extends Component {
     const matchIds = this.identifyImagesOnPage()
 
     const updateSet = this.state.foreignSet.map((img) => {
-      if (matchIds.includes(img.id) && !img.locked) {
+      if (matchIds.includes(img.id)) {
         img.seen = true;
       }
       return img;
@@ -139,9 +140,9 @@ class App extends Component {
   };
 
   toggleImageLock = (id) => {
-    const update = this.state.foreignSet.map((img) => {
+    const update = this.state.foreignSet.map(img => {
       if (img.id === id) {
-        img.locked = img.locked ? false : true;
+        img.lockedIndex = img.lockedIndex > -1 ? undefined : this.findLockIndex(id);
       }
       return img;
     });
@@ -149,14 +150,22 @@ class App extends Component {
     this.glitchLetter(true);
   };
 
+  findLockIndex(id) {
+    const visibleIds = this.identifyImagesOnPage()
+    return visibleIds.indexOf(id)
+  }
+
   saveSet = (provided_title) => {
     const visibleIds = this.identifyImagesOnPage()
     const newSet = {
       id: this.findSetId(),
       title: provided_title,
-      images: this.state.foreignSet.filter(img => {
-          if (visibleIds.includes(img.id)) return img
-        }),
+      images: this.state.foreignSet.reduce((ids, img) => {
+          if (visibleIds.includes(img.id)) {
+            ids.push(img.id)
+          }
+          return ids
+        }, []),
       created_at: Date.now()
     }
     const update = [...this.state.savedSets, newSet]
@@ -164,7 +173,6 @@ class App extends Component {
   }
 
   findSetId = () => {
-    debugger
     const savedSets = this.state.savedSets
     if (savedSets.length > 0) {
       let sorted = this.state.savedSets.sort((a, b) => b.id - a.id)
@@ -186,12 +194,7 @@ class App extends Component {
 
   presentSavedImages = (id) => {
     const setInQuestion = this.state.savedSets.find(set => set.id === parseInt(id))
-    const images = setInQuestion.images.map(img => {
-      img.seen = false
-      img.lock = false
-      return img
-    })
-
+    const images = this.state.foreignSet.filter(img => setInQuestion.images.includes(img.id))
     return images
   }
 
