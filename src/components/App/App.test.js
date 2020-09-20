@@ -154,4 +154,23 @@ describe('App', () => {
         expect(rememberedImages).toEqual(currentImagesTwo)
       })
   })
+
+})
+
+describe('Trying to figure out sad paths for api integration', () => {
+  let response
+
+  beforeEach(() => {
+    global.fetch = jest.fn()
+  })
+  
+  it.skip("Should show an error when a request has been made without authentication", async () => {
+      response = {ok: false, status: 401}
+      render(<MemoryRouter><App /></MemoryRouter>)
+      await global.fetch.mockResolvedValueOnce(response)
+      const errorHeading = screen.queryByRole('heading', { name: 'Server error 401' })
+      const errorMessage = screen.queryByText(/aren't able to authorize/i) 
+      await waitFor(() => expect (errorHeading).toBeInTheDocument())
+      await waitFor(() => expect (errorMessage).toBeInTheDocument())
+    })
 })

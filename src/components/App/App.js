@@ -156,6 +156,7 @@ class App extends Component {
   };
 
   handleApiScrewUPs = (api_response) => {
+    console.log("I got this far!", api_response)
     if (api_response.status === 401) {
       this.setState({
         popUpTrigger: "Server error 401",
