@@ -16,8 +16,8 @@ const sortImages = (images) => {
   const unseenImages = images.filter(image => parseInt(image.id) && 
   (!image.seen || image.lockedIndex > -1))
   const lockedImages = unseenImages.filter(image => image.lockedIndex > -1)
-    .sort((a, b) => a.lockedIndex - b.lockedIndex)
-
+  .sort((a, b) => a.lockedIndex - b.lockedIndex)
+  
   lockedImages.forEach(image => {
     const originalPosition = unseenImages.indexOf(image)
     unseenImages.splice(image.lockedIndex, 0, ...unseenImages.splice(originalPosition, 1))
