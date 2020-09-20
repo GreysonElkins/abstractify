@@ -140,7 +140,7 @@ class App extends Component {
   };
 
   toggleImageLock = (id) => {
-    const update = this.state.foreignSet.map((img) => {
+    const update = this.state.foreignSet.map(img => {
       if (img.id === id) {
         img.locked = img.locked ? false : true;
       }
@@ -155,9 +155,12 @@ class App extends Component {
     const newSet = {
       id: this.findSetId(),
       title: provided_title,
-      images: this.state.foreignSet.filter(img => {
-          if (visibleIds.includes(img.id)) return img
-        }),
+      images: this.state.foreignSet.reduce((ids, img) => {
+          if (visibleIds.includes(img.id)) {
+            ids.push(img.id)
+          }
+          return ids
+        }, []),
       created_at: Date.now()
     }
     const update = [...this.state.savedSets, newSet]
@@ -165,7 +168,6 @@ class App extends Component {
   }
 
   findSetId = () => {
-    debugger
     const savedSets = this.state.savedSets
     if (savedSets.length > 0) {
       let sorted = this.state.savedSets.sort((a, b) => b.id - a.id)
@@ -187,12 +189,7 @@ class App extends Component {
 
   presentSavedImages = (id) => {
     const setInQuestion = this.state.savedSets.find(set => set.id === parseInt(id))
-    const images = setInQuestion.images.map(img => {
-      img.seen = false
-      img.lock = false
-      return img
-    })
-
+    const images = this.state.foreignSet.filter(img => setInQuestion.images.includes(img.id))
     return images
   }
 

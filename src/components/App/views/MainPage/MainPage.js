@@ -13,7 +13,7 @@ const MainPage = (props) => {
 };
 
 const ignoreSeenImages = (images) => {
-  return images.filter(image => !image.seen)
+  return images.filter(image => !image.seen || image.locked)
 }
 
 const imageObjectsToJsx = (images, lockFn) => {
@@ -48,6 +48,6 @@ const displayImages = (props) => {
 export default MainPage;
 
 MainPage.propTypes = {
-  images: PropTypes.arrayOf(PropTypes.object).isRequired,
+  images: PropTypes.array.isRequired,
   toggleImageLock: PropTypes.func.isRequired
 }
