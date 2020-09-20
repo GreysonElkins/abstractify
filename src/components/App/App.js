@@ -104,7 +104,8 @@ class App extends Component {
     this.markLoadedImagesSeen();
     if (this.checkQuantityUnseen() < 20 || this.state.foreignSet.length < 0) {
       getImages().then((images) => {
-        this.setState({ foreignSet: images });
+        const updatedSet = [...this.state.foreignSet, ...images]
+        this.setState({ foreignSet: updatedSet });
       });
     }
     this.glitchLetter(true);
