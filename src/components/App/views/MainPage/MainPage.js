@@ -13,7 +13,7 @@ const MainPage = (props) => {
 };
 
 const ignoreSeenImages = (images) => {
-  return images.filter(image => !image.seen || image.locked)
+  return images.filter(image => !image.seen || image.lockedIndex > -1)
 }
 
 const imageObjectsToJsx = (images, lockFn) => {

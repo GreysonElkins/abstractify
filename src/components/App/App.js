@@ -131,7 +131,7 @@ class App extends Component {
     const matchIds = this.identifyImagesOnPage()
 
     const updateSet = this.state.foreignSet.map((img) => {
-      if (matchIds.includes(img.id) && !img.locked) {
+      if (matchIds.includes(img.id)) {
         img.seen = true;
       }
       return img;
@@ -142,13 +142,18 @@ class App extends Component {
   toggleImageLock = (id) => {
     const update = this.state.foreignSet.map(img => {
       if (img.id === id) {
-        img.locked = img.locked ? false : true;
+        img.lockedIndex = img.lockedIndex > -1 ? undefined : this.findLockIndex(id);
       }
       return img;
     });
     this.setState({ foreignSet: update });
     this.glitchLetter(true);
   };
+
+  findLockIndex(id) {
+    const visibleIds = this.identifyImagesOnPage()
+    return visibleIds.indexOf(id)
+  }
 
   saveSet = (provided_title) => {
     const visibleIds = this.identifyImagesOnPage()

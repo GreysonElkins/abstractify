@@ -14,7 +14,7 @@ const cleanPhotos = (photos) => {
         name: photo.photographer,
         url: photo.photographer_url,
       },
-      locked: false,
+      lockIndex: false,
       seen: false 
     };
   })
