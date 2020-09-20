@@ -7,7 +7,7 @@ import MainPage from './views/MainPage/MainPage'
 import UserPage from './views/UserPage/UserPage'
 import PopUpPane from '../PopUpPane/PopUpPane'
 import { getImages } from '../../ApiHelper/ApiHelper'
-import { response } from '../../test-data/fetch-response'
+import { response } from '../../test-data/cleaned-response'
 
 import './App.scss';
 import bg from '../../images/header-bg.gif'

@@ -7,7 +7,7 @@ window.MutationObserver = MutationObserver;
 
 import App from './App';
 import { getImages } from '../../ApiHelper/ApiHelper';
-import { response, responseTwo } from '../../test-data/fetch-response'
+import { response, responseTwo } from '../../test-data/cleaned-response'
 jest.mock('../../ApiHelper/ApiHelper.js')
 
 describe('App', () => {
