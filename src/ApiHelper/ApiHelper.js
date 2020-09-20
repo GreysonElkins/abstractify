@@ -3,7 +3,7 @@ const { ApiKey } = require('./API_KEY')
 
 const pages = ['https://api.pexels.com/v1/search?per_page=80&query=abstract+landscape+urban']
 
-const cleanPhotos = (photos) => {
+export const cleanPhotos = (photos) => {
   return photos.map(photo => {
     return {
       id: photo.id,
@@ -20,14 +20,14 @@ const cleanPhotos = (photos) => {
   })
 }
 
-export const getImages = () => {
+export function getImages(errorHandler) {
   let res
   try {
     return fetch(pages[0], {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        authorization: ApiKey,
+        authorization: ApiKey
       },
     })
       .then((response) => {
@@ -39,11 +39,15 @@ export const getImages = () => {
           pages.unshift(imageSet.next_page);
           return cleanPhotos(imageSet.photos);
         } else {
-          return 'Something went wrong while' + 
-          ` getting the images, error: ${res.status}`;
+          errorHandler(res)
+          // return 'Something went wrong while' + 
+          // ` getting the images, error: ${res.status}`;
         }
       });
-  } catch (error) {
-    return error.message
+    } catch (error) {
+      errorHandler(res)
+      // console.log(error)
+    // return error.message
+    return error
   }
 }

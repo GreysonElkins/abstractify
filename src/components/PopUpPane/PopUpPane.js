@@ -10,31 +10,40 @@ class PopUpPane extends Component {
       message: '',
     }
   }
+
   render() {
     return (
       <div className="pop-module">
-        <header id="popup" className={this.props.isGaudy ? "" : "mono-pop"}>
-          <h2>{this.props.show}</h2>
-          <div 
-            role="button" 
-            className="close" 
-            onClick={() => {
-              const fix = this.props.show === 'About' ? 5 : 2;
-              this.props.hide(fix)
-            }}
-            tabIndex="0"
-          >
-            𝕏
-          </div>
-        </header>
+        {this.makeHeader(this.props)}
         <main>
           {this.determineBody(this.props)}
         </main>
       </div>
     );
   }
+
+  makeHeader = ({ isGaudy, show, errorMessage, hide }) => {
+    return (
+      <header id="popup" className={isGaudy ? "" : "mono-pop"}>
+        <h2>{show}</h2>
+        {!errorMessage && (
+          <div
+            role="button"
+            className="close"
+            onClick={() => {
+              const fix = show === "About" ? 5 : 2;
+              hide(fix);
+            }}
+            tabIndex="0"
+          >
+            𝕏
+          </div>
+        )}
+      </header>
+    );
+  }
   
-  determineBody = ({ show, isGaudy }) => {
+  determineBody = ({ show, isGaudy, errorMessage }) => {
     if (show === 'About') {
       return (
         <div className={isGaudy ? "pop-body" : "pop-body-mono"}>
@@ -80,6 +89,14 @@ class PopUpPane extends Component {
         </form>
       </div>
       )
+    } else if (errorMessage) {
+      return (
+        <div className={isGaudy ? "pop-body" : "pop-body-mono"}>
+          <p className={isGaudy ? "" : "mono-pop"}>
+            {errorMessage}
+          </p>
+        </div>
+      );
     }
   }
   

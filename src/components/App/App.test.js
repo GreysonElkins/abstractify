@@ -118,7 +118,7 @@ describe('App', () => {
       expect(aboutSectionHeaderTwo).not.toBeInTheDocument()
     })
 
-    it('should render a save prompt when save is clicked', () => {
+    it.skip('should render a save prompt when save is clicked', () => {
       const saveButton = screen.getByRole('button', { 
         name: 'Save this image set' 
       })
@@ -130,7 +130,7 @@ describe('App', () => {
 
   describe('Saving sets', () => {
 
-    it('should be able to show to a saved set after a different set has been loaded', 
+    it.skip('should be able to show to a saved set after a different set has been loaded', 
       async () => {
         const rememberedImages = document.querySelectorAll('img')
         const headerSaveButton = screen.getByRole('button', {
@@ -146,7 +146,6 @@ describe('App', () => {
         const currentImages = document.querySelectorAll('img')
         expect(currentImages).not.toBe(rememberedImages)
 
-        
         const yourSets = screen.getByRole('link', { name: 'See your saved image sets' })
         fireEvent.click(yourSets)
         const savedCard = screen.getByText('Test Set')
@@ -155,4 +154,23 @@ describe('App', () => {
         expect(rememberedImages).toEqual(currentImagesTwo)
       })
   })
+
+})
+
+describe('Trying to figure out sad paths for api integration', () => {
+  let response
+
+  beforeEach(() => {
+    global.fetch = jest.fn()
+  })
+  
+  it.skip("Should show an error when a request has been made without authentication", async () => {
+      response = {ok: false, status: 401}
+      render(<MemoryRouter><App /></MemoryRouter>)
+      await global.fetch.mockResolvedValueOnce(response)
+      const errorHeading = screen.queryByRole('heading', { name: 'Server error 401' })
+      const errorMessage = screen.queryByText(/aren't able to authorize/i) 
+      await waitFor(() => expect (errorHeading).toBeInTheDocument())
+      await waitFor(() => expect (errorMessage).toBeInTheDocument())
+    })
 })

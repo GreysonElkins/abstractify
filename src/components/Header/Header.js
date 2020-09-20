@@ -27,7 +27,7 @@ const Header = ({ title, isGaudy, toggleGaudy, showPopUp, refresh, glitch, page}
           >
             Home
           </NavLink>
-          {page !== "/your-sets" && (
+          {page === "/" && (
             <button
               title="Save this image set"
               onClick={() => {
@@ -46,7 +46,7 @@ const Header = ({ title, isGaudy, toggleGaudy, showPopUp, refresh, glitch, page}
           >
             About
           </button>
-          {page !== "/your-sets" && (
+          {page === "/" && (
             <button
               title="Refresh image set"
               onClick={() => {
