@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import padlock from '../../images/padlock.svg'
 import unlock from '../../images/unlock.svg'
 
+import './ImagePanel.scss'
+
 class ImagePanel extends Component {
   constructor(props) {
     super(props)
@@ -35,6 +37,7 @@ class ImagePanel extends Component {
             onClick={() => this.props.toggleImageLock(this.props.image.id)}
           />
           {this.state.hover &&
+            <p className="photo-credit">
             <img 
               id={`${this.props.image.id}-lock`} 
               className="lock"
@@ -42,7 +45,9 @@ class ImagePanel extends Component {
               key={`${this.props.image.id}-lock`}
               src={this.props.image.locked ? padlock : unlock}
               alt={this.props.image.locked ? 'A locked padlock icon' : 'An unlocked padlock icon'} 
-            />
+              />
+              {`Photographed by ${this.props.image.photographer.name}`}
+            </p>
           }
       </>
     ); 
