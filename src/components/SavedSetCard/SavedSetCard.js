@@ -6,7 +6,7 @@ import './SavedSetCard.scss'
  
 const SavedSetCard = (props) => {
   return (
-    <Link to={`/set/${props.set.id}`} className="saved-card">
+    <Link to={`/set/${props.set.id}`} className={props.isGaudy ? "saved-card" : "saved-card-mono"}>
       <div>
         <h1>{props.set.title}</h1>
         <p className="inner-text">

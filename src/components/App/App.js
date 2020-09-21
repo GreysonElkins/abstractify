@@ -84,7 +84,7 @@ class App extends Component {
           >
           </Route>
           <Route exact path="/your-sets">
-            <UserPage imageSets={this.state.savedSets} />
+            <UserPage imageSets={this.state.savedSets} isGaudy={this.state.isGaudy}/>
           </Route>
           <Route 
             render={() => {
