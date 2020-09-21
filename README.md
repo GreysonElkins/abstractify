@@ -1,68 +1,121 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![LinkedIn][linkedin-shield]][linkedin-url]
+​
+<br />
+<p align="center">
+  <a href="https://github.com/GreysonElkins/abstractify">
+    <img src="./ReadMe-assets/logo.gif" alt="Abstractify logo" width="100%">
+  </a>
+​
+  <p align="center">
+    <br />
+    <br />
+    <a href="https://github.com/GreysonElkins/abstractify/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/GreysonElkins/abstractify/issues">Request Feature</a>
+  </p>
+</p>
 
-## Available Scripts
+​
+## Table of Contents
+​
+* [About the Project](#about-the-project)
+  * [Built With](#built-with)
+* [Getting Started](#getting-started)
+  * [Prerequisites](#prerequisites)
+  * [Installation](#installation)
+* [Usage](#usage)
+* [Roadmap](#roadmap)
+* [Contributing](#contributing)
+* [Contact](#contact)
+* [Additional Resources](#acknowledgements)
+​
+​
 
-In the project directory, you can run:
+## About The Project
+​
+Abstractify is a moodboard for abstract painters. The app allows users to load sets of images, choose images to prevent from being refreshed, and save their favorite combinations. The project is an exploration in handling image elements, utilizing flat data models in a React app, a demonstration of Router, and a practice in asynchronous testing. 
+​
+### Built With
+* [React](reactjs.org)
+* [Router](https://github.com/ReactTraining/react-router#readme)
+* [Sass](github.com/sass/dart-sass)
+* [Pexel API](https://www.pexels.com/api/)
+​
+<!-- GETTING STARTED -->
+## Getting Started
+​
+To get a local copy up and running follow these step.
+​
+### Prerequisites
+​
+Make sure you have recieved a free API key from [Pexel](https://www.pexels.com/api/)
+​
+### Installation
+​
+1. Clone the repo
+```sh
+git clone git@github.com:GreysonElkins/abstractify.git
+```
+3. Install NPM packages
+```sh
+npm install
+```
+4. Create a file in `src/ApiHelper` called `API_KEY.js` and add this code block:
+```JS
+export const ApiKey = 'ENTER YOUR API KEY'
+```
+5​. Add the new file to `.gitignore` 
 
-### `npm start`
+6. Run `npm start` to launch the app locally, run `npm test` to work with the test files.
+​
+<!-- USAGE EXAMPLES -->
+## Usage
+​
+ ### Refresh the images you don't care for, keep the ones you dig
+ <img src="./ReadMe-assets/refresh+lock2.gif" alt="refreshing and locking images" width="100%" />
+ ### Find a combo you like? Save it!
+ <img src="./ReadMe-assets/saving2.gif" alt="saving " width="100%" />
+ ### Maybe purple and orange aren't the vibe you're feeling - turn off gaudy mode!
+ <img src="./ReadMe-assets/gaudy mode.gif" alt="changing " width="100%" />
+​
+<!-- ROADMAP -->
+## Roadmap
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+We hope to develope Abstractify into an app with tools which allow users to interact with the data of an image; ideally we'll be taking content from the API and morphing into something truly modular / abstract
+​
+See the [open issues](https://github.com/greysonelkins/abstractify/issues) for a full list of proposed features (and known issues).
+​
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+<!-- CONTRIBUTING -->
+## Contributing
+​
+1. Clone the project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+​
+<!-- CONTACT -->
+## Contact
+​
+Greyson Elkins - [@GreysonElkins](https://twitter.com/GreysonElkins) - greysonelkins@gmail.com
+​​
+<!-- ACKNOWLEDGEMENTS -->
+## Additional Resources
+* [Moment.js](momentjs.com)
+* [React-router-dom](reactrouter.com)
+* [Prop-types](https://www.npmjs.com/package/prop-types)
+* [Becris's Lock Icons](https://www.flaticon.com/authors/becris)
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+[forks-shield]: https://img.shields.io/github/forks/GreysonElkins/abstractify.svg?style=flat-square
+[forks-url]: https://github.com/GreysonElkins/abstractify/network/members
+[stars-shield]: https://img.shields.io/github/stars/GreysonElkins/abstractify.svg?style=flat-square
+[stars-url]: https://github.com/GreysonElkins/abstractify/stargazers
+[issues-shield]: https://img.shields.io/github/issues/GreysonElkins/abstractify.svg?style=flat-square
+[issues-url]: https://github.com/GreysonElkins/abstractify/issues
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
+[linkedin-url]: https://www.linkedin.com/in/greyson-elkins/
+[product-screenshot]: images/screenshot.png

@@ -9,7 +9,7 @@ const UserPage = (props) => {
 
 const cards = (props) => {
   return props.imageSets.map((set, i)=> {
-    return <SavedSetCard set={set} key={`set${i}`}/>
+    return <SavedSetCard set={set} key={`set${i}`} isGaudy={props.isGaudy}/>
   })
 }
 

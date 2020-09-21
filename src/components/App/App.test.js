@@ -3,11 +3,12 @@ import { screen, render, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom'
 import '@testing-library/jest-dom'
 import MutationObserver from "@sheerun/mutationobserver-shim";
-window.MutationObserver = MutationObserver;
 
 import App from './App';
 import { getImages } from '../../ApiHelper/ApiHelper';
 import { response, responseTwo } from '../../test-data/cleaned-response'
+window.MutationObserver = MutationObserver;
+
 jest.mock('../../ApiHelper/ApiHelper.js')
 
 describe('App', () => {
@@ -15,7 +16,7 @@ describe('App', () => {
   let refreshButton
 
   beforeEach( async () => {
-    await getImages.mockResolvedValueOnce(response)
+    await waitFor(() => getImages.mockResolvedValueOnce(response))
     render(<MemoryRouter><App /></MemoryRouter>)
     refreshButton = screen.getByRole('button', { name: "Refresh image set" })
   })
@@ -118,7 +119,7 @@ describe('App', () => {
       expect(aboutSectionHeaderTwo).not.toBeInTheDocument()
     })
 
-    it.skip('should render a save prompt when save is clicked', () => {
+    it('should render a save prompt when save is clicked', () => {
       const saveButton = screen.getByRole('button', { 
         name: 'Save this image set' 
       })
@@ -130,7 +131,7 @@ describe('App', () => {
 
   describe('Saving sets', () => {
 
-    it.skip('should be able to show to a saved set after a different set has been loaded', 
+    it('should be able to show to a saved set after a different set has been loaded', 
       async () => {
         const rememberedImages = document.querySelectorAll('img')
         const headerSaveButton = screen.getByRole('button', {
@@ -158,19 +159,21 @@ describe('App', () => {
 })
 
 describe('Trying to figure out sad paths for api integration', () => {
-  let response
+  let badResponse
 
   beforeEach(() => {
-    global.fetch = jest.fn()
+    global.fetch = jest.fn(() => console.log('FATCH'))
   })
   
-  it.skip("Should show an error when a request has been made without authentication", async () => {
-      response = {ok: false, status: 401}
+  it("Should show an error when a request has been made without authentication", async () => {
+      badResponse = {ok: false, status: 401, json: () => {}}
+      // await getImages.mockResolvedValueOnce(undefined);
       render(<MemoryRouter><App /></MemoryRouter>)
-      await global.fetch.mockResolvedValueOnce(response)
-      const errorHeading = screen.queryByRole('heading', { name: 'Server error 401' })
-      const errorMessage = screen.queryByText(/aren't able to authorize/i) 
-      await waitFor(() => expect (errorHeading).toBeInTheDocument())
-      await waitFor(() => expect (errorMessage).toBeInTheDocument())
+      await waitFor(() => global.fetch.mockResolvedValueOnce(badResponse))
+      await waitFor(() => getImages.mockResolvedValue(undefined))
+      // const errorHeading = screen.queryByRole('heading', { name: 'Server error 401' })
+      // const errorMessage = screen.queryByText(/aren't able to authorize/i) 
+      // await waitFor(() => expect (errorHeading).toBeInTheDocument())
+      // await waitFor(() => expect (errorMessage).toBeInTheDocument())
     })
 })
