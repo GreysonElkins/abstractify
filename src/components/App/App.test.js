@@ -16,7 +16,7 @@ describe('App', () => {
   let refreshButton
 
   beforeEach( async () => {
-    await getImages.mockResolvedValueOnce(response)
+    await waitFor(() => getImages.mockResolvedValueOnce(response))
     render(<MemoryRouter><App /></MemoryRouter>)
     refreshButton = screen.getByRole('button', { name: "Refresh image set" })
   })
@@ -159,19 +159,21 @@ describe('App', () => {
 })
 
 describe('Trying to figure out sad paths for api integration', () => {
-  let response
+  let badResponse
 
   beforeEach(() => {
-    global.fetch = jest.fn()
+    global.fetch = jest.fn(() => console.log('FATCH'))
   })
   
-  it.skip("Should show an error when a request has been made without authentication", async () => {
-      response = {ok: false, status: 401}
+  it("Should show an error when a request has been made without authentication", async () => {
+      badResponse = {ok: false, status: 401, json: () => {}}
+      // await getImages.mockResolvedValueOnce(undefined);
       render(<MemoryRouter><App /></MemoryRouter>)
-      await global.fetch.mockResolvedValueOnce(response)
-      const errorHeading = screen.queryByRole('heading', { name: 'Server error 401' })
-      const errorMessage = screen.queryByText(/aren't able to authorize/i) 
-      await waitFor(() => expect (errorHeading).toBeInTheDocument())
-      await waitFor(() => expect (errorMessage).toBeInTheDocument())
+      await waitFor(() => global.fetch.mockResolvedValueOnce(badResponse))
+      await waitFor(() => getImages.mockResolvedValue(undefined))
+      // const errorHeading = screen.queryByRole('heading', { name: 'Server error 401' })
+      // const errorMessage = screen.queryByText(/aren't able to authorize/i) 
+      // await waitFor(() => expect (errorHeading).toBeInTheDocument())
+      // await waitFor(() => expect (errorMessage).toBeInTheDocument())
     })
 })

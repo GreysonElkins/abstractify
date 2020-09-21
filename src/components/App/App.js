@@ -70,6 +70,7 @@ class App extends Component {
                 return <MainPage
                   images={this.presentSavedImages(match.params.id)}
                   toggleImageLock={this.toggleImageLock}
+                  isSaved={true}
                 />
               } else {
                 return <PopUpPane
@@ -86,7 +87,6 @@ class App extends Component {
             <UserPage imageSets={this.state.savedSets} />
           </Route>
           <Route 
-            // path="/*" 
             render={() => {
               return (
                 <PopUpPane
@@ -196,7 +196,7 @@ class App extends Component {
     const matchIds = this.identifyImagesOnPage()
 
     const updateSet = this.state.foreignSet.map((img) => {
-      if (matchIds.includes(img.id)) {
+      if (matchIds.includes(img.id) && img.lockedIndex === undefined) {
         img.seen = true;
       }
       return img;

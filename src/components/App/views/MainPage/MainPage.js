@@ -12,18 +12,25 @@ const MainPage = (props) => {
   );
 };
 
-const sortImages = (images) => {
-    const unseenImages = images.filter(image => parseInt(image.id) && 
-    (!image.seen || image.lockedIndex > -1))
-    const lockedImages = unseenImages.filter(image => image.lockedIndex > -1)
-    .sort((a, b) => a.lockedIndex - b.lockedIndex)
-    
-    lockedImages.forEach(image => {
-      const originalPosition = unseenImages.indexOf(image)
-      unseenImages.splice(image.lockedIndex, 0, ...unseenImages.splice(originalPosition, 1))
-    })
+const sortImages = ({ images, isSaved }) => {
   
-    return unseenImages
+  let unlockedImages
+
+  if(isSaved) {
+    unlockedImages = images.filter(image => image.lockedIndex === undefined)
+  } else {
+    unlockedImages = images.filter(image => !image.seen && image.lockedIndex === undefined)
+  }
+
+    const lockedImages = images.filter(image => image.lockedIndex > -1)
+      .sort((a, b) => a.lockedIndex - b.lockedIndex)
+    
+    let sortedImages = lockedImages.reduce((allImages, locked, i) => {
+      allImages.splice(locked.lockedIndex, 0, locked)
+      return allImages
+    }, unlockedImages)
+
+    return sortedImages
   } 
 
 const imageObjectsToJsx = (images, lockFn) => {
@@ -33,7 +40,7 @@ const imageObjectsToJsx = (images, lockFn) => {
 }
 
 const displayImages = (props) => {
-    const images = sortImages(props.images)
+    const images = sortImages(props)
     const imagePanels = imageObjectsToJsx(
       images,
       props.toggleImageLock
@@ -55,5 +62,6 @@ export default MainPage;
 
 MainPage.propTypes = {
   images: PropTypes.array.isRequired,
-  toggleImageLock: PropTypes.func.isRequired
+  toggleImageLock: PropTypes.func.isRequired,
+  isSaved: PropTypes.bool
 }

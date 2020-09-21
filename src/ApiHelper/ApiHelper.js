@@ -30,11 +30,11 @@ export function getImages(errorHandler) {
         authorization: ApiKey
       },
     })
-      .then((response) => {
-        res = response;
-        return response.json();
-      })
-      .then((imageSet) => {
+    .then((response) => {
+      res = response;
+      return response.json();
+    })
+    .then((imageSet) => {
         if (res.ok) {
           pages.unshift(imageSet.next_page);
           return cleanPhotos(imageSet.photos);
