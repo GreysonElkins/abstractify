@@ -59,29 +59,32 @@ Make sure you have recieved a free API key from [Pexel](https://www.pexels.com/a
 ```sh
 git clone git@github.com:GreysonElkins/abstractify.git
 ```
-3. Install NPM packages
+2. Install NPM packages
 ```sh
 npm install
 ```
-4. Create a file in `src/ApiHelper` called `API_KEY.js` and add this code block:
+3. Create a file in `src/ApiHelper` called `API_KEY.js` and add this code block:
 ```JS
 export const ApiKey = 'ENTER YOUR API KEY'
 ```
-5​. Add the new file to `.gitignore` 
+4.  Add the new file to `.gitignore` 
 
-6. Run `npm start` to launch the app locally, run `npm test` to work with the test files.
+5. Run `npm start` to launch the app locally, run `npm test` to work with the test files.
 ​
 <!-- USAGE EXAMPLES -->
 ## Usage
 ​
  ### Refresh the images you don't care for, keep the ones you dig
  <img src="./ReadMe-assets/refresh+lock2.gif" alt="refreshing and locking images" width="100%" />
+
  ### Find a combo you like? Save it!
  <img src="./ReadMe-assets/saving2.gif" alt="saving " width="100%" />
+
  ### Maybe purple and orange aren't the vibe you're feeling - turn off gaudy mode!
  <img src="./ReadMe-assets/gaudy mode.gif" alt="changing " width="100%" />
 ​
 <!-- ROADMAP -->
+
 ## Roadmap
 
 We hope to develope Abstractify into an app with tools which allow users to interact with the data of an image; ideally we'll be taking content from the API and morphing into something truly modular / abstract
