@@ -115,14 +115,6 @@ class App extends Component {
             isGaudy={this.state.isGaudy}
           />
         )}
-        {this.state.popUpTrigger === "Save" && (
-          <PopUpPane
-            show={this.state.popUpTrigger}
-            hide={this.hidePopUp}
-            save={this.saveSet}
-            isGaudy={this.state.isGaudy}
-          />
-        )}
         {this.state.api_error && (
           <PopUpPane
             show={this.state.popUpTrigger}

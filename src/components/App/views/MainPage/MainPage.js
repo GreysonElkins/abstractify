@@ -28,11 +28,7 @@ const sortImages = (images) => {
 
 const imageObjectsToJsx = (images, lockFn) => {
   return images.map(image => {
-    return (
-      <>
-        <ImagePanel key={`image-panel-${image.id}`} image={image} toggleImageLock={lockFn}/>
-      </>
-    )
+    return <ImagePanel key={`image-panel-${image.id}`} image={image} toggleImageLock={lockFn}/>
   })
 }
 

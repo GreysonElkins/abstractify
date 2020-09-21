@@ -3,11 +3,12 @@ import { screen, render, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom'
 import '@testing-library/jest-dom'
 import MutationObserver from "@sheerun/mutationobserver-shim";
-window.MutationObserver = MutationObserver;
 
 import App from './App';
 import { getImages } from '../../ApiHelper/ApiHelper';
 import { response, responseTwo } from '../../test-data/cleaned-response'
+window.MutationObserver = MutationObserver;
+
 jest.mock('../../ApiHelper/ApiHelper.js')
 
 describe('App', () => {
@@ -118,7 +119,7 @@ describe('App', () => {
       expect(aboutSectionHeaderTwo).not.toBeInTheDocument()
     })
 
-    it.skip('should render a save prompt when save is clicked', () => {
+    it('should render a save prompt when save is clicked', () => {
       const saveButton = screen.getByRole('button', { 
         name: 'Save this image set' 
       })
@@ -130,7 +131,7 @@ describe('App', () => {
 
   describe('Saving sets', () => {
 
-    it.skip('should be able to show to a saved set after a different set has been loaded', 
+    it('should be able to show to a saved set after a different set has been loaded', 
       async () => {
         const rememberedImages = document.querySelectorAll('img')
         const headerSaveButton = screen.getByRole('button', {
