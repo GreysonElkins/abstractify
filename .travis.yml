@@ -1,0 +1,10 @@
+language: node_js
+node_js:
+- node
+notifications:
+  email: false
+deploy:
+  api_key:
+    secure: MI5ERg2e4hXVCmgUHq+qg3GjmdDgOe9XaCx22VG6lodgT6EDNa7dyHJvt39fBJQESN2IfrUSIDQiMURc/oyKq0bjeP0Niteje+czstD97sPezefA+nmpufxr5E7oXwyhAzUtulyr6MdpSkbsWKQzf97+UME8yQ/R/ZaVwSeipaa6RQKu6624zJkvwHt60YhC+RRo0x1BO4EJ+lSBGT+9AAi0ox4lP2i/lmukClMDGtOoNU0A3Yai68Mxd5Lw7HnL68BGJTq0LwG54sp95bap4u/0nA5LXnI6f515514DFKXCMdm+ve/alIwohDfruQ2TdqeEmvOAnlpT9u5l2/rGJC+EYu1CZ+hfE8nd/BylSOEGk4KeVAwBRB88INdh48vCRpAW3myTluWNjy6Kj/DKfnJLnBEec0sz1OJpTU5QJRLMky9/W5vso28SHhEKLCed28J/eKPT6UvMey3gSFqSxd+BTDoIngDk1ANwG7TIzD7tKGBN9Th9paMBaKAy9kHK0Sb+TMESYw6+8xJmpHsQ33tJDH1fakMpOiEq8HPwF8TyycI7MYSDVkJZoYbXRadiYCyM7U7j1rMwX8yQmizthTcg4qaI8eMp1pZDVxCZHb1rMSnNpu/kr5XdUAb2oRYRopb5uT7TmUwxYgw+cW5DWUAx9BGMoQdFPepRtx1rg8A=
+    app: abstractify
+    skip_cleanup: true
