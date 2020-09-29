@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/GreysonElkins/abstractify.svg?branch=master)](https://travis-ci.org/GreysonElkins/abstractify)
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
