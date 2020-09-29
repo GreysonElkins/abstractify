@@ -1,11 +1,14 @@
 import "@testing-library/jest-dom";
 import { waitFor } from '@testing-library/react'
-import { ApiKey } from './API_KEY'
+
 import { getImages } from './ApiHelper'
 import { apiResponse } from '../test-data/api-response'
 import { response } from '../test-data/cleaned-response'
 
 import MutationObserver from "@sheerun/mutationobserver-shim";
+
+require("dotenv").config();
+
 window.MutationObserver = MutationObserver;
 
 
@@ -25,9 +28,9 @@ describe('API functions', () => {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        authorization: ApiKey,
-      }
-    }
+        authorization: process.env.REACT_APP_API_KEY,
+      },
+    };
     global.fetch.mockResolvedValue(mockResponse)
   })
   
