@@ -1,5 +1,5 @@
-require('dotenv').config();
-const { ApiKey } = require('./API_KEY')
+require('dotenv').config()
+// const { ApiKey } = require('./API_KEY')
 
 const pages = ['https://api.pexels.com/v1/search?per_page=80&query=abstract+landscape+urban']
 
@@ -27,20 +27,20 @@ export function getImages(errorHandler) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        authorization: ApiKey
+        authorization: process.env.REACT_APP_API_KEY,
       },
     })
-    .then((response) => {
-      res = response;
-      return response.json();
-    })
-    .then((imageSet) => {
+      .then((response) => {
+        res = response;
+        return response.json();
+      })
+      .then((imageSet) => {
         if (res.ok) {
           pages.unshift(imageSet.next_page);
           return cleanPhotos(imageSet.photos);
         } else {
-          errorHandler(res)
-          // return 'Something went wrong while' + 
+          errorHandler(res);
+          // return 'Something went wrong while' +
           // ` getting the images, error: ${res.status}`;
         }
       });
